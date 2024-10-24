@@ -1,16 +1,14 @@
 /**
- * Class that hold data on all the F1 Results in history.
+ * Class that hold data on all the F1 sprint Results in history.
  * @class
  *
-   * Used to access F1 Results details i.e position etc...
-   * @param {} table - Results CSV table.
-   * @returns {} - object with attributes,resultId,raceId,constructorId,grid,position,positionText,positionOrder,points,rank,length
+   * Used to access F1 Sprint Results details i.e position etc...
+   * @param {} table - Sprint_Results CSV table.
+   * @returns {} - object with attributes,raceId,constructorId,grid,position,positionText,positionOrder,points,length
 
  */
 
-
-class Results{
-  #resultId;
+class SprintResults{
   #raceId;
   #driverId;
   #constructorId;
@@ -19,29 +17,18 @@ class Results{
   #positionText;
   #positionOrder;
   #points;
-  #rank;
   #length;
 
-  constructor(resultsData){
-    this.#resultId = resultsData.getColumn('resultId')
-    this.#raceId = resultsData.getColumn('raceId')
-    this.#driverId = resultsData.getColumn('driverId')
-    this.#constructorId = resultsData.getColumn('constructorId')
-    this.#grid = resultsData.getColumn('grid')
-    this.#position = resultsData.getColumn('position')
-    this.#positionText = resultsData.getColumn('positionText')
-    this.#positionOrder = resultsData.getColumn('positionOrder')
-    this.#points = resultsData.getColumn('points')
-    this.#rank = resultsData.getColumn('rank')
-    this.#length = resultsData.getRowCount()
-  }
-   /**
-   * Get the resultId at the position "index".
-   * @method
-   * @returns {integer} The resultId at the positon "index".
-   */
-  resultId(index){
-    return this.#resultId[index]
+  constructor(SprintResultsData){
+    this.#raceId = SprintResultsData.getColumn('raceId')
+    this.#driverId = SprintResultsData.getColumn('driverId')
+    this.#constructorId = SprintResultsData.getColumn('constructorId')
+    this.#grid = SprintResultsData.getColumn('grid')
+    this.#position = SprintResultsData.getColumn('position')
+    this.#positionText = SprintResultsData.getColumn('positionText')
+    this.#positionOrder = SprintResultsData.getColumn('positionOrder')
+    this.#points = SprintResultsData.getColumn('points')
+    this.#length = SprintResultsData.getRowCount()
   }
 
   /**
@@ -117,15 +104,6 @@ class Results{
   }
 
   /**
-   * Get the rank at the position "index".
-   * @method
-   * @returns {integer} The rank at the positon "index".
-   */
-  rank(index){
-    return this.#rank[index]
-  }
-
-  /**
    * Get the length at the position "index".
    * @getter
    * @returns {integer} The length at the positon "index".
@@ -133,5 +111,6 @@ class Results{
   get length(){
     return this.#length
   }
+
 
 }

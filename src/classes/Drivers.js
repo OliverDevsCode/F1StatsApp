@@ -73,7 +73,7 @@ class Drivers{
    * @returns {string} The Date of Birth of a driver at the positon "index".
    */
   dob(index){
-    this.#dob[index]
+    return this.#dob[index]
   }
 
   /**
