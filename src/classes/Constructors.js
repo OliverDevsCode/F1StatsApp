@@ -1,3 +1,13 @@
+/**
+ * Class that hold data on all the F1 Constructors in history.
+ * @class
+ *
+   * Used to access Constructor details i.e name etc...
+   * @param {} table - Driver Results CSV table.
+   * @returns {} constructorId,name,nationality,length
+
+ */
+
 class Constructors{
     #constructorId;
     #name;
