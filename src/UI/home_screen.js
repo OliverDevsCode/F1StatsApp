@@ -13,6 +13,56 @@ function draw_Home_Screen(){
     searchBar.size(windowWidth*0.4,windowHeight*0.1)
 
     //draw championship podium
+    drawDriverPodium()
+    
+
+}
+
+function createDriverBox(driver_x,x,y,w,h,r){
+    push()
+    stroke(getColor(driver_x[1]))
+    strokeWeight(5)
+    rect(x,y,w,h,r)
+    pop()
+    push()
+    textFont('Consolas')
+    textSize(22)
+    text(driver_x[4],x+30,y+5,windowWidth,windowHeight)
+    textAlign(BASELINE)
+    textSize(20)
+    fill(getColor(driver_x[1]))
+    text("Standing "+ getSuffix(driver_x[1]),x+10,y+30,w,h)
+    text("Points "+ driver_x[2],x+10,y+55,w,h)
+    text("Wins "+ driver_x[3],x+10,y+80,w,h)
+    pop()
+}  
+
+function getSuffix(x){
+    if(x == 1){
+        return "1st"
+    }
+    if(x == 2){
+        return "2nd"
+    }
+    if(x == 3){
+        return "3rd"
+    }
+
+}
+
+function getColor(c){
+    if(c==1){
+        return '#FFD700'
+    }
+    if(c==2){
+        return '#C0C0C0'
+    }
+    if(c==3){
+        return '#CD7F32'
+    }
+}
+
+function drawDriverPodium(){
     let driver1_stats = []; //format DriverID,Position,Points,Wins
     let driver2_stats = [];
     let driver3_stats= [];
@@ -36,16 +86,29 @@ function draw_Home_Screen(){
 
     driver2 = new Driver(driver2_stats[0])
     driver2.createHomePageStats(driversDB)
-    driver2_stats.push(driver2.forename)
+    driver2_stats.push(driver2.forename + " "+ driver2.surname)
+
+    driver3 = new Driver(driver3_stats[0])
+    driver3.createHomePageStats(driversDB)
+    driver3_stats.push(driver3.forename + " "+ driver3.surname)
 
 
     // development testing REMOVE when done (START)
-    console.log(driver1_stats)
-    console.log(driver2_stats)
-    console.log(driver3_stats)
+    // console.log(driver1_stats)
+    // console.log(driver2_stats)
+    // console.log(drisver3_stats)
     // development testing REMOVE when done (END)
 
+    //P1
+    createDriverBox(driver1_stats,windowWidth*0.5,windowHeight*0.22,230,120,windowHeight/25)
 
+    //P2
+    createDriverBox(driver2_stats,windowWidth*0.35,windowHeight*0.55,230,120,windowHeight/25)
 
+    //P3
+    createDriverBox(driver3_stats,windowWidth*0.7,windowHeight*0.55,230,120,windowHeight/25)
+}
 
+function drawLatestResults(){
+    latest_results = [] //format (position,driverId)
 }

@@ -36,7 +36,11 @@ class DriverStatistics{
    */
 
   get number(){
-    return this.#drivers.number(this.#driverID-1)
+    for(let i=0;i<this.#drivers.length;i++){
+      if(this.#drivers.driverId(i)==this.#driverID){
+        return this.#drivers.number(i)
+      }
+    }
   }
 
   /**
@@ -46,7 +50,11 @@ class DriverStatistics{
    */
 
   get forename(){
-    return this.#drivers.forename(this.#driverID-1)
+    for(let i=0;i<this.#drivers.length;i++){
+      if(this.#drivers.driverId(i)==this.#driverID){
+        return this.#drivers.forename(i)
+      }
+    }
   }
 
   /**
@@ -56,7 +64,11 @@ class DriverStatistics{
    */
 
   get surname(){
-    return this.#drivers.surname(this.#driverID-1)
+    for(let i=0;i<this.#drivers.length;i++){
+      if(this.#drivers.driverId(i)==this.#driverID){
+        return this.#drivers.surname(i)
+      }
+    }
   }
 
   /**
@@ -66,7 +78,11 @@ class DriverStatistics{
    */
 
   get dob(){
-    return this.#drivers.dob(this.#driverID-1)
+    for(let i=0;i<this.#drivers.length;i++){
+      if(this.#drivers.driverId(i)==this.#driverID){
+        return this.#drivers.dob(i)
+      }
+    }
   }
 
   /**
@@ -76,7 +92,11 @@ class DriverStatistics{
    */
 
   get nationality(){
-    return this.#drivers.nationality(this.#driverID-1)
+    for(let i=0;i<this.#drivers.length;i++){
+      if(this.#drivers.driverId(i)==this.#driverID){
+        return this.#drivers.nationality(i)
+      }
+    }
   }
 
   /**

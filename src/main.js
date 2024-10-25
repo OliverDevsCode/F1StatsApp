@@ -11,22 +11,22 @@ function setup() {
 
 
   //testing classes start
-  driverA = new DriverStatistics(843,resultsDB,sprintResultsDB,driversDB) //testing class ( target Charles Leclerc )
-  console.log(driverA.forename+ " "+ driverA.surname)
-  console.log(driverA.dob)
+  // driverA = new DriverStatistics(844,resultsDB,sprintResultsDB,driversDB) //testing class ( target Charles Leclerc )
+  // console.log(driverA.forename+ " "+ driverA.surname)
+  // console.log(driverA.dob)
 
-  driverB = new DriverStatistics(1,resultsDB,sprintResultsDB,driversDB) //testing class ( target ;ewis mclaren )
-  console.log(driverB.forename+ " "+ driverB.surname)
-  console.log(driverB.dob)
+  // driverB = new DriverStatistics(1,resultsDB,sprintResultsDB,driversDB) //testing class ( target ;ewis mclaren )
+  // console.log(driverB.forename+ " "+ driverB.surname)
+  // console.log(driverB.dob)
 
 
-  hamilton = new Driver(1)
-  hamilton.createProfileStats(driversDB,resultsDB,sprintResultsDB)
-  console.log(hamilton.forename +" "+hamilton.surname + " "+hamilton.dob +" "+hamilton.nationality)
+  // hamilton = new Driver(1)
+  // hamilton.createProfileStats(driversDB,resultsDB,sprintResultsDB)
+  // console.log(hamilton.forename +" "+hamilton.surname + " "+hamilton.dob +" "+hamilton.nationality)
 
-  mclaren = new Constructor(1)
-  mclaren.createProfileStats(constructorsDB,resultsDB,sprintResultsDB)
-  console.log(mclaren.name +" "+mclaren.nationality)
+  // mclaren = new Constructor(1)
+  // mclaren.createProfileStats(constructorsDB,resultsDB,sprintResultsDB)
+  // console.log(mclaren.name +" "+mclaren.nationality)
   //testing classes end
 
 
