@@ -12,6 +12,13 @@ function setup() {
   driverB = new DriverStatistics(1,resultsDB,sprintResultsDB,driversDB) //testing class ( target ;ewis Hamilton )
   console.log(driverB.forename+ " "+ driverB.surname)
   console.log(driverB.dob)
+
+
+  hamilton = new Driver(1)
+  hamilton.createProfileStats(driversDB,resultsDB,sprintResultsDB)
+  console.log(hamilton.forename)
+
+
 }
 
 function draw() {

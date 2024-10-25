@@ -115,4 +115,8 @@ class DriverStatistics{
     //logic to calculate the total points scored by a driver in their career
   }
 
+  #calculateList_of_points_finishes(){
+    //logic to calculate the list of all finishing positions by a driver in their career
+  }
+
 }

@@ -13,6 +13,15 @@ class ConstructorStatistics{
     #sprintResults;
     #constructors;
 
+    /**
+     * Create a DriverStatistics Object.
+     * @param {number} constructorID - The constructorID.
+     * @param {object} resultsDB - An instance of Results Class.
+     * @param {object} SprintresultsDB - An instance of SprintResults Class.
+     * @param {object} constructorsDB - An instance of Constructors Class.
+     *
+     */
+
     constructor(constructorID,results,sprintResults,constructors){
         this.#constructorID = constructorID;
         this.#results = results;
@@ -77,6 +86,10 @@ class ConstructorStatistics{
     
       #calculateCareer_points(){
         //logic to calculate the total points scored by a driver in their career
+      }
+
+      #calculateList_of_points_finishes(){
+        //logic to calculate the list of all finishing positions by a driver in their career
       }
     
 
