@@ -29,21 +29,51 @@ class DriverStatistics{
     this.#drivers = driversDB;
   }
 
+   /**
+   * Get driver number at positon "driverID".
+   * @method
+   * @returns {integer} The  driver number at positon "driverID".
+   */
+
   get number(){
     return this.#drivers.number(this.#driverID-1)
   }
+
+  /**
+   * Get forename at positon "driverID".
+   * @method
+   * @returns {string} The  forename at positon "driverID".
+   */
 
   get forename(){
     return this.#drivers.forename(this.#driverID-1)
   }
 
+  /**
+   * Get surname at positon "driverID".
+   * @method
+   * @returns {string} The  surname at positon "driverID".
+   */
+
   get surname(){
     return this.#drivers.surname(this.#driverID-1)
   }
 
+  /**
+   * Get date of birth at positon "driverID".
+   * @method
+   * @returns {string} The  date of birth at positon "driverID".
+   */
+
   get dob(){
     return this.#drivers.dob(this.#driverID-1)
   }
+
+  /**
+   * Get nationality at positon "driverID".
+   * @method
+   * @returns {string} The  nationality at positon "driverID".
+   */
 
   get nationality(){
     return this.#drivers.nationality(this.#driverID-1)
