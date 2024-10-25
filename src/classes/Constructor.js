@@ -1,18 +1,15 @@
 /**
- * Class that hold driver details and stats.
+ * Class that hold Constructor details and stats.
  * @class
  *
-   * Used to get Driver details i.e forename etc...
+   * Used to get Constructor details i.e name etc...
    * @returns {} various stats such as wins,poles etc...
 
  */
 
-class Driver{
-    #driverID;
-    #number;
-    #forename;
-    #surname;
-    #dob;
+class Constructor{
+    #constructorID;
+    #name;
     #nationality;
     #wins;
     #poles;
@@ -31,16 +28,13 @@ class Driver{
      *
      */
 
-    constructor(driverID){
-        this.#driverID = driverID;
+    constructor(constructorID){
+        this.#constructorID = constructorID
     }
 
-    createProfileStats(driversDB,resultsDB,sprintResultsDB){
-        let stats = new DriverStatistics(this.#driverID,resultsDB,sprintResultsDB,driversDB)
-        this.#number = stats.number;
-        this.#forename = stats.forename;
-        this.#surname = stats.surname;
-        this.#dob = stats.dob;
+    createProfileStats(constructorDB,resultsDB,sprintResultsDB){
+        let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorDB)
+        this.#name = stats.name;
         this.#nationality = stats.nationality;
         this.#wins = stats.wins;
         this.#poles = stats.poles;
@@ -52,56 +46,6 @@ class Driver{
         this.#list_of_finishes = stats.List_of_finishes;
     }
 
-    createHomePageStats(driversDB){
-        let stats = new DriverStatistics(this.#driverID,null,null,driversDB);
-        this.#forename = stats.forename;
-        this.#surname = stats.surname;
-    }
-
-    /**
-   * Get number
-   * @getter
-   * @returns {string} The number
-   */
-
-    get number(){
-        return this.#number
-    }
-
-    get forename(){
-        return this.#forename
-    }
-
-    /**
-   * Get surname
-   * @getter
-   * @returns {string} The surname
-   */
-
-    get surname(){
-        return this.#surname
-    }
-
-    /**
-   * Get dob
-   * @getter
-   * @returns {string} The dob
-   */
-
-    get dob(){
-        return this.#dob
-    }
-
-    /**
-   * Get nationality
-   * @getter
-   * @returns {string} The nationality
-   */
-
-    get nationality(){
-        return this.#nationality
-    }
-
     /**
    * Get wins
    * @getter
@@ -110,6 +54,27 @@ class Driver{
 
     get wins(){
         return this.#wins
+    }
+
+
+    /**
+   * Get name
+   * @getter
+   * @returns {integer} The name
+   */
+
+    get name(){
+        return this.#name
+    }
+
+    /**
+   * Get nationality
+   * @getter
+   * @returns {integer} The nationality
+   */
+
+    get nationality(){
+        return this.#nationality
     }
 
     /**

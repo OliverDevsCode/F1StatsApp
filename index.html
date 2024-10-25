@@ -12,6 +12,18 @@
   </head>
 
   <body>
+    <!-- navbar start -->
+    <div class="navbar">
+      <h1>Formula1<font color = "black">Stats</font>
+      <button class="homebutton" onclick="goHome()" type="button">Home</button>
+      <button class="comparebutton" onclick="goCompare()" type="button">Compare</button>
+      <button class="seasonbutton" onclick="goSeason()" type="button">Season</button>
+    </h1>
+      <hr color="black" size="8px" />
+    </div>
+    <!-- navbar end -->
+
+
     <script src="src/main.js"></script>
     <!-- Utilities -->
     <script src="src/utils/DatabaseFunctions.js"></script>
@@ -23,6 +35,7 @@
 
      <!-- constructor related classes -->
      <script src="src/classes/Constructors.js"></script>
+     <script src="src/classes/Constructor.js"></script>
      <script src="src/classes/ConstructorStatistics.js"></script>
 
      <!-- driver related classes -->
@@ -33,6 +46,21 @@
 
      <!-- User Interface scripts-->
       <script src="src/UI/home_screen.js"></script>
+      <script>
+        function goHome(){
+          console.log("GO HOME")
+          displaymode = 1
+        }
+        function goCompare(){
+          console.log("GO COMPARE")
+          displaymode = 2
+    
+        }
+        function goSeason(){
+          console.log("GO SEASON")
+          displaymode = 3
+        }
+      </script>
 
     
 

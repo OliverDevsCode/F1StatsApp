@@ -1,8 +1,50 @@
-html, body {
-  margin: 0;
-  padding: 0;
+body{
+  background-color: #E1E0D7;
+}
+
+.navbar{
+  color: red;
+  font-family: 'Consolas';
+  font-size: 2.5vw;
+  margin-bottom: 0%;
+}
+
+.navbar h1{
+  margin-bottom: 0%;
+}
+
+.navbar hr{
+  margin-top: 0%;
+  width: 100%;
+}
+.navbar button{
+  font-family: 'Consolas';
+  font-size: 75%;
+  border-radius: 10px;
+  font-weight: bolder;
+  background-color: black;
+  color: #E1E0D7;
+  
+}
+.homebutton{
+  position: relative;
+  left: 3vw;
+  bottom: 5px;
+}
+
+.comparebutton{
+  position: relative;
+  left:1vw;
+  bottom: 5px;
+}
+
+.seasonbutton{
+  position: relative;
+  right: 1vw;
+  bottom: 5px;
 }
 
 canvas {
   display: block;
 }
+
