@@ -53,7 +53,6 @@ function draw() {
 
   //search screen
   if(displaymode==4){
-
     //prep canvas
     clearP5Elements()
     clear()
@@ -61,12 +60,25 @@ function draw() {
 
     //get data and draw
     console.log("Search Screen Drawn")
-    console.log(`Search = ${searchBar.value()}`)
     draw_Search_Screen(searchBar.value())
     displaymode = -4
-    // driverSelect.mousePressed(drawProfile)//create drawProfil.js file
+    
+    //draw driver profile
+    driverSelect.mousePressed(change_mode_to_driver_profile)//create drawProfil.js file
 
   }
+
+  if(displaymode == 5){
+    //prep canvas
+    clearP5Elements()
+    clear()
+    background('#E1E0D7')
+    draw_Driver_Profile()
+
+    console.log("Driver Profile Drawn")
+    displaymode = -5
+  }
+
 }  
 
 function keyPressed(){

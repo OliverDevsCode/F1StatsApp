@@ -2,10 +2,10 @@ let driverInput;
 let constructorInput;
 let driverSelect;
 let constructorSelect;
+let constructor_matches = [] //index position of the matches
+let driver_matches = [] //index position of the matches
 
 function draw_Search_Screen(user_input){
-    let constructor_matches = [] //index position of the matches
-    let driver_matches = [] //index position of the matches
 
     findResults(constructor_matches,driver_matches,user_input)
     
@@ -30,11 +30,16 @@ function findResults(constructor_matches,driver_matches,user_input){
         if(user_input == (constructorsDB.name(index)).toLowerCase() || user_input == (constructorsDB.nationality(index)).toLowerCase() ){
             constructor_matches.push(index)
         }
+        
+    }
+    //seperate so close match comes up first in display
+    for(let index =0; index<constructorsDB.length;index++){
         if((user_input).includes((constructorsDB.name(index)).toLowerCase())==true || (user_input).includes((constructorsDB.nationality(index)).toLowerCase())==true){
             if(constructor_matches.includes(index)==false){
                 constructor_matches.push(index)
             }
         }
+        
     }
     // console.log(`Constructor Index list =`,constructor_matches) tesing
 
@@ -45,13 +50,17 @@ function findResults(constructor_matches,driver_matches,user_input){
         if(user_input == ((driversDB.forename(index))).toLowerCase() || user_input == ((driversDB.surname(index))).toLowerCase() || user_input == ((driversDB.number(index))).toLowerCase() || (user_input).includes((driversDB.nationality(index)).toLowerCase())==true){
             driver_matches.push(index)
         }
+        
+    }
+    //seperate so close match comes up first in display
+    for(let index = 0; index<driversDB.length;index++){
+
         if((user_input).includes((driversDB.forename(index)).toLowerCase())==true || (user_input).includes((driversDB.surname(index)).toLowerCase())==true || (user_input).includes((driversDB.number(index)).toLowerCase())==true || (user_input).includes((driversDB.nationality(index)).toLowerCase())==true){
             if(driver_matches.includes(index)==false){
                 driver_matches.push(index)
             }
         }
         
-
     }
     // console.log(`Driver Index list =`,driver_matches) testing
 
