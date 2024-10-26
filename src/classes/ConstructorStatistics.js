@@ -36,7 +36,11 @@ class ConstructorStatistics{
    */
 
   get name(){
-    return this.#constructors.name(this.#constructorID-1)
+    for(let i =0; i < this.#constructors.length;i++){
+      if(this.#constructors.constructorId(index)==this.#constructorID){
+        return this.#constructors.name(i)
+      }
+    }    
   }
 
 
@@ -47,7 +51,11 @@ class ConstructorStatistics{
    */
 
   get nationality(){
-    return this.#constructors.nationality(this.#constructorID-1)
+    for(let i =0; i < this.#constructors.length;i++){
+      if(this.#constructors.constructorId(index)==this.#constructorID){
+        return this.#constructors.nationality(i)
+      }
+    }  
   }
 
   /**

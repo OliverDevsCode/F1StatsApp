@@ -10,8 +10,8 @@ function draw_Home_Screen(){
     searchBar.style('border-radius', '20px');
     searchBar.style('border', '5px solid black');  // 5px border thickness
     pop()
-    searchBar.position(windowWidth*0.5,windowHeight*0.25)
-    searchBar.size(windowWidth*0.4,windowHeight*0.1)
+    searchBar.position(windowWidth*0.5,cnvOffset.y+50)
+    searchBar.size(windowWidth*0.38,windowHeight*0.1)
 
     p5_elements.push(searchBar)
 
@@ -24,6 +24,20 @@ function draw_Home_Screen(){
     
 
 }
+
+/**
+   * Get draw driver championship details box.
+   * @function
+   * @param {driverDetails} - driver details
+   * @param {x} - x pos
+   * @param {y} - y pos
+   * @param {w} - width
+   * @param {h} - height
+   * @param {r} - corner radius
+   * 
+   * 
+   * @returns {element} driver details box drawn on screen.
+   */
 
 function createDriverBox(driver_x,x,y,w,h,r){
     push()
@@ -44,6 +58,12 @@ function createDriverBox(driver_x,x,y,w,h,r){
     pop()
 }  
 
+/**
+   * Get suffix for championship box.
+   * @function
+   * @param {positiont} - driver position
+   * @returns {string} suffix.
+   */
 function getSuffix(x){
     if(x == 1){
         return "1st"
@@ -56,6 +76,13 @@ function getSuffix(x){
     }
 
 }
+
+/**
+   * Get colour for championship box.
+   * @function
+   * @param {positiont} - driver position
+   * @returns {string} colour.
+   */
 
 function getColor(c){
     if(c==1){
@@ -121,11 +148,11 @@ function drawLatestResults(){
     let index = (resultsDB.length)-1
     let latest_raceID = resultsDB.raceId(index);
     while(resultsDB.raceId(index)==latest_raceID){
-        driverA_name = []
-        driverA = new Driver(resultsDB.driverId(index))
-        driverA.createHomePageStats(driversDB)
-        driverA_name.push(driverA.forename + " "+ driverA.surname)
-        latest_results.push([resultsDB.positionText(index),driverA_name])
+        driver_name = []
+        driver = new Driver(resultsDB.driverId(index))
+        driver.createHomePageStats(driversDB)
+        driver_name.push(driver.forename + " "+ driver.surname)
+        latest_results.push([resultsDB.positionText(index),driver_name])
         index --
     }
 
@@ -149,7 +176,5 @@ function drawLatestResults(){
         pop()
     }
     
-
-
 
 }

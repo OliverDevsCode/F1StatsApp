@@ -1,10 +1,13 @@
 let displaymode;
+let cnv;
+let cnvOffset
 function preload(){
   loadDatabase()
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight*0.9);
+  cnv = createCanvas(windowWidth, windowHeight*0.9);
+  cnvOffset = cnv.elt.getBoundingClientRect()
   background('#E1E0D7');
   createDatabaseClasses()
   displaymode = 1;
@@ -50,19 +53,25 @@ function draw() {
 
   //search screen
   if(displaymode==4){
+
+    //prep canvas
     clearP5Elements()
     clear()
-    background('#E1E0D7');//here instead of loop so data isn't overidden
-    draw_Search_Screen(searchBar.value())
+    background('#E1E0D7');
+
+    //get data and draw
     console.log("Search Screen Drawn")
     console.log(`Search = ${searchBar.value()}`)
+    draw_Search_Screen(searchBar.value())
     displaymode = -4
+    // driverSelect.mousePressed(drawProfile)//create drawProfil.js file
+
   }
 }  
 
 function keyPressed(){
   if(keyCode == ENTER){
-    if(displaymode == -1){
+    if(displaymode == -1 || displaymode == -4){
     displaymode = 4
     }
   }
