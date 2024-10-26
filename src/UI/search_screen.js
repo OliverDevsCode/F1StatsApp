@@ -1,7 +1,7 @@
 let driverInput;
-let contructorInput;
+let constructorInput;
 let driverSelect;
-let constuctorSelect;
+let constructorSelect;
 
 function draw_Search_Screen(user_input){
     let constructor_matches = [] //index position of the matches
@@ -36,7 +36,7 @@ function findResults(constructor_matches,driver_matches,user_input){
             }
         }
     }
-    console.log(`Constructor Index list =`,constructor_matches)
+    // console.log(`Constructor Index list =`,constructor_matches) tesing
 
 
     //find driver matches
@@ -53,7 +53,7 @@ function findResults(constructor_matches,driver_matches,user_input){
         
 
     }
-    console.log(`Driver Index list =`,driver_matches)
+    // console.log(`Driver Index list =`,driver_matches) testing
 
 
 }
@@ -96,7 +96,7 @@ function drawSearchResults(constructor_matches,driver_matches){
 
     //draw drivers;
     if((windowHeight*0.30)+(30*driver_matches.length)>cnv.height){
-        console.log("TOO MANY")
+        // console.log("TOO MANY") testing
         resizeCanvas(windowWidth,((windowHeight*0.19)+cnvOffset.y)+(30*driver_matches.length))
     }
 
@@ -115,6 +115,52 @@ function drawSearchResults(constructor_matches,driver_matches){
         textFont('Consolas')
         textSize(25)
         text(i+1 + ":"+driver_name,windowWidth*0.06,(windowHeight*0.30)+(30*i))
+        pop()
+
+    }
+
+    //right side constructors
+    textStyle(ITALIC)
+    constructorInput = createInput()
+    p5_elements.push(constructorInput)
+    constructorInput.attribute('placeholder','number')
+    constructorInput.style('font-style', 'italic');
+    constructorInput.style('font-family','Consolas')
+    constructorInput.style('text-align','center')
+    constructorInput.style('border-radius', '10px');
+
+    constructorSelect = createButton('Enter')
+    p5_elements.push(constructorSelect)
+    constructorSelect.style('font-style', 'italic');
+    constructorSelect.style('font-family','Consolas')
+    constructorSelect.style('text-align','center')
+    constructorSelect.style('border-radius', '10px');
+
+    constructorInput.size(80,40)
+    constructorInput.position((windowWidth*0.85)-constructorInput.width/2,(windowHeight*0.19)+cnvOffset.y)
+    constructorSelect.position((windowWidth*0.85)+90-constructorInput.width/2,(windowHeight*0.19)+cnvOffset.y+10)
+
+    //draw constructors;
+    if((windowHeight*0.30)+(30*constructor_matches.length)>cnv.height){
+        // console.log("TOO MANY") testing
+        resizeCanvas(windowWidth,((windowHeight*0.19)+cnvOffset.y)+(30*constructor_matches.length))
+    }
+
+    push()
+    textStyle(BOLD)
+    textFont('Consolas')
+    textSize(30)
+    textAlign(LEFT)
+    text("Constructors",(windowWidth*0.85)-260,(windowHeight*0.2)+25)
+    pop()
+    push()
+    
+    for(let i = 0;i<constructor_matches.length;i++){
+        let constructor_name = constructorsDB.name(constructor_matches[i])
+        push()
+        textFont('Consolas')
+        textSize(25)
+        text(i+1 + ":"+constructor_name,(windowWidth*0.85)-260,(windowHeight*0.30)+(30*i))
         pop()
 
     }
