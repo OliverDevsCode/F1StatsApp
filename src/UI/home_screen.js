@@ -1,3 +1,4 @@
+//declared p5js elements
 let searchBar;
 function draw_Home_Screen(){
     searchBar = createInput() // may need to be outside function so its a global and cam be accessed anywhere
@@ -9,11 +10,17 @@ function draw_Home_Screen(){
     searchBar.style('border-radius', '20px');
     searchBar.style('border', '5px solid black');  // 5px border thickness
     pop()
-    searchBar.position(windowWidth*0.5,windowHeight*0.2)
+    searchBar.position(windowWidth*0.5,windowHeight*0.25)
     searchBar.size(windowWidth*0.4,windowHeight*0.1)
+
+    p5_elements.push(searchBar)
+
 
     //draw championship podium
     drawDriverPodium()
+
+    //draw latestResults
+    drawLatestResults()
     
 
 }
@@ -100,15 +107,49 @@ function drawDriverPodium(){
     // development testing REMOVE when done (END)
 
     //P1
-    createDriverBox(driver1_stats,windowWidth*0.5,windowHeight*0.22,230,120,windowHeight/25)
+    createDriverBox(driver1_stats,windowWidth*0.55,windowHeight*0.3,230,120,windowHeight/25)
 
     //P2
-    createDriverBox(driver2_stats,windowWidth*0.35,windowHeight*0.55,230,120,windowHeight/25)
+    createDriverBox(driver2_stats,windowWidth*0.38,windowHeight*0.55,230,120,windowHeight/25)
 
     //P3
-    createDriverBox(driver3_stats,windowWidth*0.7,windowHeight*0.55,230,120,windowHeight/25)
+    createDriverBox(driver3_stats,windowWidth*0.72,windowHeight*0.55,230,120,windowHeight/25)
 }
 
 function drawLatestResults(){
-    latest_results = [] //format (position,driverId)
+    let latest_results = [] //format (position,name)
+    let index = (resultsDB.length)-1
+    let latest_raceID = resultsDB.raceId(index);
+    while(resultsDB.raceId(index)==latest_raceID){
+        driverA_name = []
+        driverA = new Driver(resultsDB.driverId(index))
+        driverA.createHomePageStats(driversDB)
+        driverA_name.push(driverA.forename + " "+ driverA.surname)
+        latest_results.push([resultsDB.positionText(index),driverA_name])
+        index --
+    }
+
+    push()
+    textAlign(CENTER)
+    textFont('Consolas')
+    textSize(22)
+    text("Latest Results",(windowWidth*0.01)+125,(windowHeight*0.1)-10)
+    pop()
+    push()
+    strokeWeight(5)
+    rect(windowWidth*0.01,windowHeight*0.1,250,windowHeight*0.7,20)
+    pop()
+
+    for(let p=0;p<latest_results.length;p++){
+        push()
+        textAlign(LEFT)
+        textFont('Consolas')
+        textSize(18)
+        text(latest_results[latest_results.length-p-1][0] + "." +latest_results[latest_results.length-p-1][1],(windowWidth*0.01)+15,(windowHeight*0.14)+25*p)
+        pop()
+    }
+    
+
+
+
 }

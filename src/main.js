@@ -32,23 +32,38 @@ function setup() {
 
 }
 
+
+
 //Once drawn set display to mode 0 so it isn't called every second.
 function draw() {
+
+  //home screen
   if(displaymode==1){
+    clearP5Elements()
     clear()
     background('#E1E0D7');//here instead of loop so data isn't overidden
     draw_Home_Screen()
     console.log("Home Screen Drawn")
     displaymode = -1 //maybe -1 then menu 2 = -2, so that key Pressed function still knows what page is displayed
   }
+
+
+  //search screen
+  if(displaymode==4){
+    clearP5Elements()
+    clear()
+    background('#E1E0D7');//here instead of loop so data isn't overidden
+    draw_Search_Screen(searchBar.value())
+    console.log("Search Screen Drawn")
+    console.log(`Search = ${searchBar.value()}`)
+    displaymode = -4
+  }
 }  
 
 function keyPressed(){
   if(keyCode == ENTER){
     if(displaymode == -1){
-    //code to start search
-    //call search function + display results page
-    console.log(searchBar.value())//value in search bars - testing
+    displaymode = 4
     }
   }
 }
