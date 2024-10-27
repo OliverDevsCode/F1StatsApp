@@ -32,18 +32,21 @@ class Constructor{
         this.#constructorID = constructorID
     }
 
-    createProfileStats(constructorDB,resultsDB,sprintResultsDB){
-        let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorDB)
+    createProfileStats(constructorsDB,resultsDB,sprintResultsDB){
+        let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorsDB)
+        stats.calcProfileStats()
         this.#name = stats.name;
         this.#nationality = stats.nationality;
         this.#wins = stats.wins;
         this.#poles = stats.poles;
         this.#podiums = stats.podiums;
+        this.#fastest_laps = stats.Fastest_laps;
         this.#dnfs = stats.dnfs;
         this.#num_of_races = stats.Num_of_races;
         this.#poles_to_wins = stats.Poles_to_wins;
         this.#points_scoring_races = stats.Points_scoring_races;
         this.#list_of_finishes = stats.List_of_finishes;
+        this.#career_points = stats.Career_points
     }
 
     /**

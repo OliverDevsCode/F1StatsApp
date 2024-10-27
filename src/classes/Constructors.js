@@ -22,7 +22,7 @@ class Constructors{
 
     }
 
-    contructorId(index){
+    constructorId(index){
         return this.#constructorId[index]
     }
 

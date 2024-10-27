@@ -13,6 +13,9 @@ class ConstructorStatistics{
     #sprintResults;
     #constructors;
 
+    #statistics = [] //order of data: wins, podiums, dnfs, races, points scoring races,fastests laps, career points, poles, poles to wins
+
+
     /**
      * Create a DriverStatistics Object.
      * @param {number} constructorID - The constructorID.
@@ -37,7 +40,7 @@ class ConstructorStatistics{
 
   get name(){
     for(let i =0; i < this.#constructors.length;i++){
-      if(this.#constructors.constructorId(index)==this.#constructorID){
+      if(this.#constructors.constructorId(i)==this.#constructorID){
         return this.#constructors.name(i)
       }
     }    
@@ -52,7 +55,7 @@ class ConstructorStatistics{
 
   get nationality(){
     for(let i =0; i < this.#constructors.length;i++){
-      if(this.#constructors.constructorId(index)==this.#constructorID){
+      if(this.#constructors.constructorId(i)==this.#constructorID){
         return this.#constructors.nationality(i)
       }
     }  
@@ -65,7 +68,7 @@ class ConstructorStatistics{
    */
 
   get wins(){
-    return this.#calculateWins()
+    return this.#statistics[0]
   }
 
   /**
@@ -75,7 +78,9 @@ class ConstructorStatistics{
    */
 
   get poles(){
-    return this.#calculatePoles()
+    return this.#statistics[8]
+
+    
   }
 
   /**
@@ -85,7 +90,7 @@ class ConstructorStatistics{
    */
 
   get podiums(){
-    return this.#calculatePodiums()
+    return this.#statistics[1]
   }
 
   /**
@@ -95,7 +100,8 @@ class ConstructorStatistics{
    */
 
   get dnfs(){
-    return this.#calculateDNFs()
+    return this.#statistics[2]
+    
   }
 
   /**
@@ -105,7 +111,7 @@ class ConstructorStatistics{
    */
 
   get Num_of_races(){
-    return this.#calculateNum_of_races()
+    return this.#statistics[3]
   }
 
   /**
@@ -115,7 +121,7 @@ class ConstructorStatistics{
    */
 
   get Poles_to_wins(){
-    return this.#calculatePoles_to_wins()
+    return this.#statistics[9]
   }
 
   /**
@@ -125,7 +131,8 @@ class ConstructorStatistics{
    */
 
   get Points_scoring_races(){
-    return this.#calculatePoints_scoring_races()
+    return this.#statistics[4]
+
   }
 
   /**
@@ -135,7 +142,7 @@ class ConstructorStatistics{
    */
 
   get Fastest_laps(){
-    return this.#calculateFastest_laps()
+    return this.#statistics[5]
   }
 
   /**
@@ -145,7 +152,7 @@ class ConstructorStatistics{
    */
 
   get Career_points(){
-    return this.#calculateCareer_points()
+    return this.#statistics[6]
   }
 
   /**
@@ -155,49 +162,125 @@ class ConstructorStatistics{
    */
 
   get List_of_finishes(){
-    return this.#calculateList_of_finishes()
+    return this.#statistics[7]
   }
 
-  
-    #calculateWins(){
-        //logic to calculate wins
-      }
-    
-      #calculatePoles(){
-        //logic to calculate poles
-      }
-    
-      #calculatePodiums(){
-        //logic to calculate Podiums
-      }
-    
-      #calculateDNFs(){
-        //logic to calculate DNFS
-      }
-    
-      #calculateNum_of_races(){
-        //logic to calculate number of races started
-      }
-    
-      #calculatePoles_to_wins(){
-        //logic to calculate number of poles converted to wins
-      }
-    
-      #calculatePoints_scoring_races(){
-        //logic to calculate the number of races a driver has scored points at 
-      }
-    
-      #calculateFastest_laps(){
-        //logic to calculate number of fastest laps
-      }
-    
-      #calculateCareer_points(){
-        //logic to calculate the total points scored by a driver in their career
-      }
+//public methods TESTING
 
-      #calculateList_of_finishes(){
-        //logic to calculate the list of all finishing positions by a driver in their career
+calcProfileStats(){
+  let wins = 0;
+  let poles = 0;
+  let podiums = 0;
+  let dnfs = 0;
+  let races_enters = []
+  let races = 0;
+  let points_scoring_races = 0;
+  let fastest_laps = 0;
+  let points_tally = 0;
+  let list_of_finishes = [];
+  let pole_to_win =0;
+  for(let index =0; index < this.#results.length;index++){
+
+    //wins calculate
+    if(this.#results.position(index)==1 && this.#results.constructorId(index)==this.#constructorID){
+      wins ++
+    }
+
+    //podiums calculate
+    if(this.#results.position(index)<=3 && this.#results.constructorId(index)==this.#constructorID){
+      podiums ++
+    }
+
+    //dnfs
+    if(this.#results.positionText(index)=="R" && this.#results.constructorId(index)==this.#constructorID){
+      dnfs ++
+    }
+
+    //races
+    if(this.#results.constructorId(index)==this.#constructorID){
+      if(races_enters.includes(this.#results.raceId(index))){
+      }else{
+      races += 1
+      races_enters.push(this.#results.raceId(index))
+
       }
+    }
+
+    //points scoring races
+    if(this.#results.points(index)>0 && this.#results.constructorId(index)==this.#constructorID){
+      if(races_enters.includes(this.#results.raceId(index))){
+      }else{
+      points_scoring_races ++ 
+
+      }
+    }
+
+    //fastest laps
+    if(this.#results.rank(index)==1 && this.#results.constructorId(index)==this.#constructorID){
+      fastest_laps ++
+    }
+
+    //career points tally
+    if(this.#results.constructorId(index)==this.#constructorID){
+      points_tally += parseInt(this.#results.points(index));
+    }
+
+    //list of finishes
+    if(this.#results.constructorId(index)==this.#constructorID){
+      list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+    }
+
+    //calculate poles
+    if((this.#results.raceId(index)<1077 || this.#results.raceId(index)>1101)&& this.#results.constructorId(index) == this.#constructorID){
+      if(this.#results.grid(index)==1){
+        poles ++
+        if(parseInt(this.#results.positionOrder(index))==1){
+          pole_to_win ++
+        }
+      }
+    }
+    if(((this.#results.raceId(index)>=1077) && (this.#results.raceId(index)<=1101)) && this.#results.constructorId(index)==this.#constructorID){
+      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == true){
+        if((this.#isSprintWeekend(this.#results.raceId(index)))[1]==1){
+          poles ++
+          if(parseInt(this.#results.positionOrder(index))==1){
+            pole_to_win ++
+          }
+        }
+      }
+      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == false){
+        if(this.#results.grid(index)==1){
+          poles ++
+          if(parseInt(this.#results.positionOrder(index))==1){
+            pole_to_win ++
+          }
+        }
+      }
+      
+    }
+    //calculate poles end
     
 
+
+  }//database loop end
+  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
+}//createProfileStats end
+
+
+/**
+   * Check if sprint Weekend + grid pos of constructorID
+   * @method
+   * @returns {array} boolean of sprintWeekend + grid position
+   */
+#isSprintWeekend(raceID){
+  let isSprint = [false]
+  for(let index =0; index < this.#sprintResults.length;index++){
+    if(this.#sprintResults.raceId(index)==raceID && this.#sprintResults.constructorId(index)==this.#constructorID){
+      isSprint.pop()
+      isSprint.push(true,parseInt(this.#sprintResults.grid(index)))
+      break
+    }
+  }
+  return isSprint
+}
 }

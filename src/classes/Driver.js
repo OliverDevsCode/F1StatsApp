@@ -35,8 +35,19 @@ class Driver{
         this.#driverID = driverID;
     }
 
+     /**
+   * create Profile Statistics 
+   * @method
+   * @param {object} driversDB - The driversDB.
+   * @param {object} resultsDB - The resultsDB.
+   * @param {object} sprintResultsDB - The sprintResultsDB.
+   * @returns {data} sets values in object
+   */
+
     createProfileStats(driversDB,resultsDB,sprintResultsDB){
         let stats = new DriverStatistics(this.#driverID,resultsDB,sprintResultsDB,driversDB)
+        stats.calcProfileStats()
+        console.log("STATS CALCULATED")
         this.#number = stats.number;
         this.#forename = stats.forename;
         this.#surname = stats.surname;
@@ -45,17 +56,39 @@ class Driver{
         this.#wins = stats.wins;
         this.#poles = stats.poles;
         this.#podiums = stats.podiums;
+        this.#fastest_laps = stats.Fastest_laps
         this.#dnfs = stats.dnfs;
         this.#num_of_races = stats.Num_of_races;
         this.#poles_to_wins = stats.Poles_to_wins;
         this.#points_scoring_races = stats.Points_scoring_races;
+        this.#career_points = stats.Career_points
         this.#list_of_finishes = stats.List_of_finishes;
     }
+
+    /**
+   * create Home page Statistics 
+   * @method
+   * @param {object} driversDB - The driversDB.
+   * @returns {data} sets values in object
+   */
 
     createHomePageStats(driversDB){
         let stats = new DriverStatistics(this.#driverID,null,null,driversDB);
         this.#forename = stats.forename;
         this.#surname = stats.surname;
+    }
+
+    /**
+   * create comparison Statistics 
+   * @method
+   * @param {object} driversDB - The driversDB.
+   * @param {object} resultsDB - The resultsDB.
+   * @param {object} sprintResultsDB - The sprintResultsDB.
+   * @returns {data} sets values in object
+   */
+
+    createComparisonStats(driversDB,resultsDB,sprintResultsDB){
+      //needs completing
     }
 
     /**

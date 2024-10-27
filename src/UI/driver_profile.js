@@ -24,19 +24,16 @@ function  draw_Driver_Profile(){
     textSize(windowWidth/50)
     let gap = windowWidth/50
     
-    text("Wins:"+ driverA.wins,windowWidth/45,(windowWidth/20)+gap*1.5)
-    text("Poles:"+ driverA.poles,windowWidth/45,(windowWidth/20)+2*gap*1.5)
-    text("Podiums:"+ driverA.podiums,windowWidth/45,(windowWidth/20)+3*gap*1.5)
-    text("DNFs:"+ driverA.dnfs,windowWidth/45,(windowWidth/20)+4*gap*1.5)
-    text("Races:"+ driverA.races,windowWidth/45,(windowWidth/20)+5*gap*1.5)
+    text("Wins:"+ driverA.wins+ "("+((driverA.wins)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+gap*1.5)
+    text("Poles:"+ driverA.poles+ "("+((driverA.poles)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+2*gap*1.5)
+    text("Podiums:"+ driverA.podiums+ "("+((driverA.podiums)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+3*gap*1.5)
+    text("Fastest Laps:"+ driverA.fastest_laps+ "("+((driverA.poles)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
+    text("DNFs:"+ driverA.dnfs+ "("+((driverA.dnfs)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+5*gap*1.5)
+    text("Races:"+ driverA.num_of_races,windowWidth/45,(windowWidth/20)+6*gap*1.5)
     textSize(windowWidth/55)
-    text("Poles to Win Conversion Rate:"+ driverA.poles_to_wins,windowWidth/45,(windowWidth/20)+6*gap*1.5)
-
-
-
-
-
-
+    text("Poles to Win Conversion Rate:"+ ((driverA.poles_to_wins)/(driverA.poles)*100).toPrecision(4) + "%",windowWidth/45,(windowWidth/20)+7*gap*1.5)
+    textSize(windowWidth/50)
+    text("Career Points: "+ driverA.career_points,windowWidth/45,(windowWidth/20)+8*gap*1.5)
     pop()//text stat ends
 
     

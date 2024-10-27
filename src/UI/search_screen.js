@@ -7,6 +7,9 @@ let driver_matches = [] //index position of the matches
 
 function draw_Search_Screen(user_input){
 
+    constructor_matches = [] //clear
+    driver_matches = [] //clear
+
     findResults(constructor_matches,driver_matches,user_input)
     
     drawSearchResults(constructor_matches,driver_matches)

@@ -13,6 +13,10 @@ class DriverStatistics{
   #sprintResults;
   #drivers;
 
+
+  #statistics = [] //order of data: wins, podiums, dnfs, races, points scoring races,fastests laps, career points, poles, poles to wins
+
+
   /**
      * Create a DriverStatistics Object.
      * @param {number} driverID - The driverID.
@@ -106,7 +110,7 @@ class DriverStatistics{
    */
 
   get wins(){
-    return this.#calculateWins()
+    return this.#statistics[0]
   }
 
   /**
@@ -116,7 +120,9 @@ class DriverStatistics{
    */
 
   get poles(){
-    return this.#calculatePoles()
+    return this.#statistics[8]
+
+    
   }
 
   /**
@@ -126,7 +132,7 @@ class DriverStatistics{
    */
 
   get podiums(){
-    return this.#calculatePodiums()
+    return this.#statistics[1]
   }
 
   /**
@@ -136,7 +142,8 @@ class DriverStatistics{
    */
 
   get dnfs(){
-    return this.#calculateDNFs()
+    return this.#statistics[2]
+    
   }
 
   /**
@@ -146,7 +153,7 @@ class DriverStatistics{
    */
 
   get Num_of_races(){
-    return this.#calculateNum_of_races()
+    return this.#statistics[3]
   }
 
   /**
@@ -156,7 +163,7 @@ class DriverStatistics{
    */
 
   get Poles_to_wins(){
-    return this.#calculatePoles_to_wins()
+    return this.#statistics[9]
   }
 
   /**
@@ -166,7 +173,8 @@ class DriverStatistics{
    */
 
   get Points_scoring_races(){
-    return this.#calculatePoints_scoring_races()
+    return this.#statistics[4]
+
   }
 
   /**
@@ -176,7 +184,7 @@ class DriverStatistics{
    */
 
   get Fastest_laps(){
-    return this.#calculateFastest_laps()
+    return this.#statistics[5]
   }
 
   /**
@@ -186,7 +194,7 @@ class DriverStatistics{
    */
 
   get Career_points(){
-    return this.#calculateCareer_points()
+    return this.#statistics[6]
   }
 
   /**
@@ -196,51 +204,116 @@ class DriverStatistics{
    */
 
   get List_of_finishes(){
-    return this.#calculateList_of_finishes()
+    return this.#statistics[7]
   }
 
+//public methods TESTING
+
+calcProfileStats(){
+  let wins = 0;
+  let poles = 0;
+  let podiums = 0;
+  let dnfs = 0;
+  let races = 0;
+  let points_scoring_races = 0;
+  let fastest_laps = 0;
+  let points_tally = 0;
+  let list_of_finishes = [];
+  let pole_to_win =0;
+  for(let index =0; index < this.#results.length;index++){
+
+    //wins calculate
+    if(this.#results.position(index)==1 && this.#results.driverId(index)==this.#driverID){
+      wins ++
+    }
+
+    //podiums calculate
+    if(this.#results.position(index)<=3 && this.#results.driverId(index)==this.#driverID){
+      podiums ++
+    }
+
+    //dnfs
+    if(this.#results.positionText(index)=="R" && this.#results.driverId(index)==this.#driverID){
+      dnfs ++
+    }
+
+    //races
+    if(this.#results.driverId(index)==this.#driverID){
+      races ++
+    }
+
+    //points scoring races
+    if(this.#results.points(index)>0 && this.#results.driverId(index)==this.#driverID){
+      points_scoring_races ++
+    }
+
+    //fastest laps
+    if(this.#results.rank(index)==1 && this.#results.driverId(index)==this.#driverID){
+      fastest_laps ++
+    }
+
+    //career points tally
+    if(this.#results.driverId(index)==this.#driverID){
+      points_tally += parseInt(this.#results.points(index));
+    }
+
+    //list of finishes
+    if(this.#results.driverId(index)==this.#driverID){
+      list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+    }
+
+    //calculate poles
+    if((this.#results.raceId(index)<1077 || this.#results.raceId(index)>1101)&& this.#results.driverId(index) == this.#driverID){
+      if(this.#results.grid(index)==1){
+        poles ++
+        if(parseInt(this.#results.positionOrder(index))==1){
+          pole_to_win ++
+        }
+      }
+    }
+    if(((this.#results.raceId(index)>=1077) && (this.#results.raceId(index)<=1101)) && this.#results.driverId(index)==this.#driverID){
+      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == true){
+        if((this.#isSprintWeekend(this.#results.raceId(index)))[1]==1){
+          poles ++
+          if(parseInt(this.#results.positionOrder(index))==1){
+            pole_to_win ++
+          }
+        }
+      }
+      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == false){
+        if(this.#results.grid(index)==1){
+          poles ++
+          if(parseInt(this.#results.positionOrder(index))==1){
+            pole_to_win ++
+          }
+        }
+      }
+      
+    }
+    //calculate poles end
+    
 
 
-//private methods
+  }//database loop end
+  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
+}//createProfileStats end
 
-  #calculateWins(){
-    //logic to calculate wins
+
+/**
+   * Check if sprint Weekend + grid pos of DriverID
+   * @method
+   * @returns {array} boolean of sprintWeekend + grid position
+   */
+#isSprintWeekend(raceID){
+  let isSprint = [false]
+  for(let index =0; index < this.#sprintResults.length;index++){
+    if(this.#sprintResults.raceId(index)==raceID && this.#sprintResults.driverId(index)==this.#driverID){
+      isSprint.pop()
+      isSprint.push(true,parseInt(this.#sprintResults.grid(index)))
+      break
+    }
   }
-
-  #calculatePoles(){
-    //logic to calculate poles
-  }
-
-  #calculatePodiums(){
-    //logic to calculate Podiums
-  }
-
-  #calculateDNFs(){
-    //logic to calculate DNFS
-  }
-
-  #calculateNum_of_races(){
-    //logic to calculate number of races started
-  }
-
-  #calculatePoles_to_wins(){
-    //logic to calculate number of poles converted to wins
-  }
-
-  #calculatePoints_scoring_races(){
-    //logic to calculate the number of races a driver has scored points at 
-  }
-
-  #calculateFastest_laps(){
-    //logic to calculate number of fastest laps
-  }
-
-  #calculateCareer_points(){
-    //logic to calculate the total points scored by a driver in their career
-  }
-
-  #calculateList_of_finishes(){
-    //logic to calculate the list of all finishing positions by a driver in their career
-  }
+  return isSprint
+}
 
 }

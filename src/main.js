@@ -64,7 +64,9 @@ function draw() {
     displaymode = -4
     
     //draw driver profile
-    driverSelect.mousePressed(change_mode_to_driver_profile)//create drawProfil.js file
+    driverSelect.mousePressed(change_mode_to_driver_profile)
+    //draw constructor profile
+    constructorSelect.mousePressed(change_mode_to_constructor_profile)
 
   }
 
@@ -77,6 +79,17 @@ function draw() {
 
     console.log("Driver Profile Drawn")
     displaymode = -5
+  }
+
+  if(displaymode == 6){
+    //prep canvas
+    clearP5Elements()
+    clear()
+    background('#E1E0D7')
+    draw_Constructor_Profile()
+
+    console.log("Constructor Profile Drawn")
+    displaymode = -6
   }
 
 }  
