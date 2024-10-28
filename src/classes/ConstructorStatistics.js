@@ -170,6 +170,7 @@ class ConstructorStatistics{
 calcProfileStats(){
   let wins = 0;
   let poles = 0;
+  let list_pole_raceIds = [];
   let podiums = 0;
   let dnfs = 0;
   let races_enters = []
@@ -234,23 +235,26 @@ calcProfileStats(){
     if((this.#results.raceId(index)<1077 || this.#results.raceId(index)>1101)&& this.#results.constructorId(index) == this.#constructorID){
       if(this.#results.grid(index)==1){
         poles ++
+        list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
         if(parseInt(this.#results.positionOrder(index))==1){
           pole_to_win ++
         }
       }
     }
     if(((this.#results.raceId(index)>=1077) && (this.#results.raceId(index)<=1101)) && this.#results.constructorId(index)==this.#constructorID){
-      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == true){
-        if((this.#isSprintWeekend(this.#results.raceId(index)))[1]==1){
+      if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[0] == true){
+        if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[1]==1 && (list_pole_raceIds.includes(parseInt(this.#results.raceId(index)))==false)){
           poles ++
+          list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
           if(parseInt(this.#results.positionOrder(index))==1){
             pole_to_win ++
           }
         }
       }
-      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == false){
+      if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[0] == false){
         if(this.#results.grid(index)==1){
           poles ++
+          list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
           if(parseInt(this.#results.positionOrder(index))==1){
             pole_to_win ++
           }
@@ -264,6 +268,7 @@ calcProfileStats(){
 
   }//database loop end
   this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
+  
 }//createProfileStats end
 
 
@@ -272,7 +277,7 @@ calcProfileStats(){
    * @method
    * @returns {array} boolean of sprintWeekend + grid position
    */
-#isSprintWeekend(raceID){
+#isSprintWeekend(raceID,list_pole_raceIds){
   let isSprint = [false]
   for(let index =0; index < this.#sprintResults.length;index++){
     if(this.#sprintResults.raceId(index)==raceID && this.#sprintResults.constructorId(index)==this.#constructorID){

@@ -1,9 +1,10 @@
 function  draw_Constructor_Profile(){
+    backButton.show()
+
     //get raceID of driver at selected
     let constructor_name = constructor_matches[constructorInput.value()-1]
     let constructorID = constructorsDB.constructorId(constructor_name)
     
-    console.log("ConstructorID = ",constructorID)
     
     //creating driver object
     let constructorA = new Constructor(constructorID)
@@ -37,7 +38,7 @@ function  draw_Constructor_Profile(){
 
     pop()//text stat ends
 
-    console.log("List of finishes: ",constructorA.list_of_finishes)
+    //console.log("List of finishes: ",constructorA.list_of_finishes)
 
 }
 

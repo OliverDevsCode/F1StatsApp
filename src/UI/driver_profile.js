@@ -1,9 +1,10 @@
 function  draw_Driver_Profile(){
+    backButton.show()
+
     //get raceID of driver at selected
     let driver_name = driver_matches[driverInput.value()-1]
     let driverID = driversDB.driverId(driver_name)
     
-    console.log("DriverID = ",driverID)
     
     //creating driver object
     let driverA = new Driver(driverID)
@@ -35,6 +36,8 @@ function  draw_Driver_Profile(){
     textSize(windowWidth/50)
     text("Career Points: "+ driverA.career_points,windowWidth/45,(windowWidth/20)+8*gap*1.5)
     pop()//text stat ends
+
+    //console.log(JSON.stringify(driverA.list_of_finishes))
 
     
 

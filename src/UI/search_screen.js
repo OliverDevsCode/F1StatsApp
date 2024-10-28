@@ -6,6 +6,7 @@ let constructor_matches = [] //index position of the matches
 let driver_matches = [] //index position of the matches
 
 function draw_Search_Screen(user_input){
+    backButton.show()
 
     constructor_matches = [] //clear
     driver_matches = [] //clear

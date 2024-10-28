@@ -1,4 +1,5 @@
 let displaymode;
+let screen_history = [];
 let cnv;
 let cnvOffset
 function preload(){
@@ -10,57 +11,59 @@ function setup() {
   cnvOffset = cnv.elt.getBoundingClientRect()
   background('#E1E0D7');
   createDatabaseClasses()
+  createBackButton();
   displaymode = 1;
-
-
-  //testing classes start
-  // driverA = new DriverStatistics(844,resultsDB,sprintResultsDB,driversDB) //testing class ( target Charles Leclerc )
-  // console.log(driverA.forename+ " "+ driverA.surname)
-  // console.log(driverA.dob)
-
-  // driverB = new DriverStatistics(1,resultsDB,sprintResultsDB,driversDB) //testing class ( target ;ewis mclaren )
-  // console.log(driverB.forename+ " "+ driverB.surname)
-  // console.log(driverB.dob)
-
-
-  // hamilton = new Driver(1)
-  // hamilton.createProfileStats(driversDB,resultsDB,sprintResultsDB)
-  // console.log(hamilton.forename +" "+hamilton.surname + " "+hamilton.dob +" "+hamilton.nationality)
-
-  // mclaren = new Constructor(1)
-  // mclaren.createProfileStats(constructorsDB,resultsDB,sprintResultsDB)
-  // console.log(mclaren.name +" "+mclaren.nationality)
-  //testing classes end
-
-
 }
 
 
 
 //Once drawn set display to mode 0 so it isn't called every second.
 function draw() {
+  if(displaymode>0){
+    if(screen_history.includes(displaymode)==false){
+    //push mode
+     screen_history.push(displaymode)
+    }
+     
+  }
+ 
+  
+  //back button
+  backButton.mousePressed(go_back)
 
   //home screen
   if(displaymode==1){
+
+    //prep canvas
     clearP5Elements()
     clear()
-    background('#E1E0D7');//here instead of loop so data isn't overidden
+    background('#E1E0D7');
+
+    //draw new screen
     draw_Home_Screen()
     console.log("Home Screen Drawn")
-    displaymode = -1 //maybe -1 then menu 2 = -2, so that key Pressed function still knows what page is displayed
+    displaymode = -1
   }
 
 
   //search screen
   if(displaymode==4){
+
     //prep canvas
     clearP5Elements()
     clear()
     background('#E1E0D7');
 
     //get data and draw
+
+    const start = Date.now()//search timer
+
     console.log("Search Screen Drawn")
     draw_Search_Screen(searchBar.value())
+
+    const millis = Date.now() - start;//search timer
+    console.log(`Search took ${millis}ms`)//search timer
+
     displaymode = -4
     
     //draw driver profile
@@ -75,10 +78,16 @@ function draw() {
     clearP5Elements()
     clear()
     background('#E1E0D7')
+
+    const start = Date.now()//search timer
+    //draw profile
     draw_Driver_Profile()
+    const millis = Date.now() - start;//search timer
+    console.log(`Profile took ${millis}ms`)//search timer
 
     console.log("Driver Profile Drawn")
     displaymode = -5
+
   }
 
   if(displaymode == 6){
