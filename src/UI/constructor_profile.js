@@ -4,6 +4,13 @@ function  draw_Constructor_Profile(){
     //get raceID of driver at selected
     let constructor_name = constructor_matches[constructorInput.value()-1]
     let constructorID = constructorsDB.constructorId(constructor_name)
+
+    let gap = windowWidth/50 //used for spacing
+    
+    if(((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5)>cnv.height){
+        // console.log("TOO MANY") testing
+        resizeCanvas(windowWidth,((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5))
+    }
     
     
     //creating driver object
@@ -23,7 +30,6 @@ function  draw_Constructor_Profile(){
     textFont('Consolas')
     textStyle(NORMAL)
     textSize(windowWidth/50)
-    let gap = windowWidth/50
     
     text("Wins:"+ constructorA.wins+ "("+((constructorA.wins)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+gap*1.5)
     text("Poles:"+ constructorA.poles+ "("+((constructorA.poles)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+2*gap*1.5)
@@ -38,7 +44,17 @@ function  draw_Constructor_Profile(){
 
     pop()//text stat ends
 
-    //console.log("List of finishes: ",constructorA.list_of_finishes)
+    //pie charts
+
+    console.log("constructorA.car_entries",constructorA.car_entries)
+
+    drawPie("Points Finishes",windowWidth/9,((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,constructorA.points_scoring_races,constructorA.num_of_races) // points finish graph
+
+    drawPie("DNFs",windowWidth/9+1.5*((windowHeight/5)),((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,(constructorA.num_of_races)-(constructorA.dnfs),constructorA.num_of_races) // dnf graph
+
+    //distribution graph
+
+    drawFinishGraph(constructorA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.4,windowHeight*0.5)
 
 }
 

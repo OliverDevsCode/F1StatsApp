@@ -165,6 +165,16 @@ class ConstructorStatistics{
     return this.#statistics[7]
   }
 
+  /**
+   * Get number of cars entered into races
+   * @method
+   * @returns {string} number of cars entered in constructor history
+   */
+
+  get car_entries(){
+    return this.#statistics[10]
+  }
+
 //public methods TESTING
 
 calcProfileStats(){
@@ -180,6 +190,7 @@ calcProfileStats(){
   let points_tally = 0;
   let list_of_finishes = [];
   let pole_to_win =0;
+  let car_entries = 0;
   for(let index =0; index < this.#results.length;index++){
 
     //wins calculate
@@ -197,16 +208,6 @@ calcProfileStats(){
       dnfs ++
     }
 
-    //races
-    if(this.#results.constructorId(index)==this.#constructorID){
-      if(races_enters.includes(this.#results.raceId(index))){
-      }else{
-      races += 1
-      races_enters.push(this.#results.raceId(index))
-
-      }
-    }
-
     //points scoring races
     if(this.#results.points(index)>0 && this.#results.constructorId(index)==this.#constructorID){
       if(races_enters.includes(this.#results.raceId(index))){
@@ -215,6 +216,19 @@ calcProfileStats(){
 
       }
     }
+
+    //races
+    if(this.#results.constructorId(index)==this.#constructorID){
+      if(races_enters.includes(this.#results.raceId(index))){
+      }else{
+      races += 1
+      races_enters.push(this.#results.raceId(index))
+
+      }
+      car_entries ++
+    }
+
+    
 
     //fastest laps
     if(this.#results.rank(index)==1 && this.#results.constructorId(index)==this.#constructorID){
@@ -267,7 +281,7 @@ calcProfileStats(){
 
 
   }//database loop end
-  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
+  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win,car_entries)
   
 }//createProfileStats end
 
