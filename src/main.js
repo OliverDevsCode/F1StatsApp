@@ -35,14 +35,39 @@ function draw() {
   if(displaymode==1){
 
     //prep canvas
-    clearP5Elements()
-    clear()
+    clearP5Elements();
+    clear();
     background('#E1E0D7');
 
     //draw new screen
-    draw_Home_Screen()
+    draw_Home_Screen();
     console.log("Home Screen Drawn")
     displaymode = -1
+    
+    
+  }
+
+  //compare screen
+  if(displaymode==2){
+
+    //prep canvas
+    clearP5Elements();
+    clear();
+    background('#E1E0D7');
+
+    const start = Date.now()//search timer
+
+    //draw new screen
+    draw_Compare_Screen();
+
+    driverA_text.input(displayDriverAInDropDown)
+    driverB_text.input(displayDriverBInDropDown)
+
+    const millis = Date.now() - start;//search timer
+    console.log(`Search took ${millis}ms`)//search timer
+
+    console.log("Compare Screen Drawn")
+    displaymode = -2
   }
 
 
