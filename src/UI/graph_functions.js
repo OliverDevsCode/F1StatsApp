@@ -155,3 +155,86 @@ function getFrequencyArray(list_of_finishes){
   return place_freq
   
 }
+
+//code below is experimental;
+function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h){
+  clear()
+  gap = h *0.1
+  y_adjust = 1.1;
+  // rect(x-w/2,y-gap,w,h) for testing
+  
+  textSize(h *0.06)
+  textAlign(CENTER)
+  textFont('Consolas')
+  textStyle(BOLD)
+  text("Wins",x,y_adjust*y)
+  text("Poles",x,y_adjust*y+gap)
+  text("Podiums",x,y_adjust*y+2*gap)
+  text("Races",x,y_adjust*y+3*gap)
+  text("Points",x,y_adjust*y+4*gap)
+  
+  let max_races;
+  let compareA_races;
+  let compareB_races;
+  
+  if(compareA.num_of_races > compareB.num_of_races){
+    max_races = compareA.num_of_races;
+  }else{
+    max_races = compareB.num_of_races;
+  }
+  if(leftside=='driver'){
+      push()
+      fill('#00A498')
+      text(compareA.forename+" "+compareA.surname,x-5*gap,y-0.6*gap);
+      pop()
+
+      DriverLogic(compareA,'left')
+    
+  
+  }
+   if(rightside=='driver'){
+    push()
+    fill('#DC0022')
+    text(compareB.forename+" "+compareB.surname,x+5*gap,y-0.6*gap);
+    pop()
+
+    DriverLogic(compareB,'right')
+  }
+  
+  function DriverLogic(driver,mode){
+    push()
+    fill('#00A498')
+     //mode = left side or right side
+     if(mode=="left"){
+       rect(x-1.2*gap,y_adjust*y-0.5*gap,-(barLength(driver.wins)),gap*0.7,0,10,10,0)
+       rect(x-1.2*gap,y_adjust*y+0.45*gap,-(barLength(driver.poles)),gap*0.7,0,10,10,0)
+       rect(x-1.2*gap,y_adjust*y+1.45*gap,-(barLength(driver.podiums)),gap*0.7,0,10,10,0)
+       rect(x-1.2*gap,y_adjust*y+2.5*gap,-(barLength(driver.num_of_races)),gap*0.7,0,10,10,0)
+       text(driver.career_points,x-2*gap,y_adjust*y+4*gap);
+     }
+    pop()
+    push()
+    fill('#DC0022')
+     if(mode=="right"){
+        rect(x+1.2*gap,y_adjust*y-0.5*gap,(barLength(driver.wins)),gap*0.7,0,10,10,0)
+       rect(x+1.2*gap,y_adjust*y+0.45*gap,(barLength(driver.poles)),gap*0.7,0,10,10,0)
+       rect(x+1.2*gap,y_adjust*y+1.45*gap,(barLength(driver.podiums)),gap*0.7,0,10,10,0)
+       rect(x+1.2*gap,y_adjust*y+2.5*gap,(barLength(driver.num_of_races)),gap*0.7,0,10,10,0)
+       text(driver.career_points,x+2*gap,y_adjust*y+4*gap);
+     }
+       
+    pop()
+  }
+  
+  function ConstructorLogic(mode){
+  }
+
+  function barLength(value){
+    value = (value/max_races)*(w*0.7)
+    return value
+  }
+  
+  
+  
+  
+}

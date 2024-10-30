@@ -62,7 +62,7 @@ function draw() {
 
     driverA_text.input(displayDriverAInDropDown)
     driverB_text.input(displayDriverBInDropDown)
-
+    
     const millis = Date.now() - start;//search timer
     console.log(`Search took ${millis}ms`)//search timer
 
