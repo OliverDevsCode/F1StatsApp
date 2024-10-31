@@ -25,6 +25,8 @@ function draw_Compare_Screen(){
 function draw_Comparison_data(){
   clear()
   let compareA;
+  let compareA_races;
+  let compareB_races;
   let compareB;
   let leftside;
   let rightside;
@@ -37,29 +39,33 @@ function draw_Comparison_data(){
       compareA = new Driver(compareA_Id)
       compareA.createProfileStats(driversDB,resultsDB,sprintResultsDB)
       leftside = "driver"
+      compareA_races = compareA.num_of_races
     }
     if(compareB_Id[1]=="D"){
       compareB_Id = driversDB.driverId(compareB_Id[0]-1)
       compareB = new Driver(compareB_Id)
       compareB.createProfileStats(driversDB,resultsDB,sprintResultsDB)
       rightside = "driver"
+      compareB_races = compareB.num_of_races
+
     }
     if(compareA_Id[1]=="C"){
       compareA_Id = constructorsDB.constructorId(compareA_Id[0]-1)
       compareA = new Constructor(compareA_Id)
       compareA.createProfileStats(constructorsDB,resultsDB,sprintResultsDB)
       leftside = "constructor"
+      compareA_races = compareA.car_entries
     }
     if(compareB_Id[1]=="C"){
       compareB_Id = constructorsDB.constructorId(compareB_Id[0]-1)
       compareB = new Constructor(compareB_Id)
       compareB.createProfileStats(constructorsDB,resultsDB,sprintResultsDB)
       rightside = "constructor"
+      compareB_races = compareB.car_entries
     }
-
-    console.log(`Left side ${leftside},Rightside ${rightside}`)
-    drawCompareStats(compareA,compareB,leftside,rightside,width/2.07-cnvOffset.x,height/7,width/2,height/2)
-
+    resizeCanvas(windowWidth,(windowHeight*1.05))
+    drawCompareStats(compareA,compareB,leftside,rightside,width/2.07-cnvOffset.x,height/7,width/2,height/2,compareA_races,compareB_races)
+    createCompareFinishGraph(compareA.list_of_finishes,compareB.list_of_finishes,width/2.07-cnvOffset.x,windowHeight*0.5,windowWidth/2.5,windowHeight/2)
     }
 
 }

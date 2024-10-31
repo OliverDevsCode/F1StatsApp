@@ -43,7 +43,6 @@ function drawPie(label,x,y,w,h,dataX,dataY){
 
 function drawFinishGraph(finishes,x,y,w,h){
   let pos_freq = getFrequencyArray(finishes)
-  let best = pos_freq[0][0]
   let worst = pos_freq.at(-1)[0]
   
   //get number of position
@@ -156,13 +155,29 @@ function getFrequencyArray(list_of_finishes){
   
 }
 
-//code below is experimental;
-function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h){
+
+/**
+   * Draws compareStats.
+   * @function
+   * @param {object} compareA Driver A or Constructor A
+   * @param {object} finish Driver B or Constructor B
+   * @param {String} leftside type of object to display left
+   * @param {String} rightside type of object to display right
+   * @param {integer} x 
+   * @param {integer} y 
+   * @param {integer} w 
+   * @param {integer} h 
+   * @param {integer} compareA_races the number of races A has participated in
+   * @param {integer} compareB_races the number of races B has participated in
+   * 
+   * @returns Draws finish position distribution graph.
+   */
+function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h,compareA_races,compareB_races){
   clear()
   gap = h *0.1
   y_adjust = 1.1;
   // rect(x-w/2,y-gap,w,h) for testing
-  
+  push()
   textSize(h *0.06)
   textAlign(CENTER)
   textFont('Consolas')
@@ -172,19 +187,21 @@ function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h){
   text("Podiums",x,y_adjust*y+2*gap)
   text("Races",x,y_adjust*y+3*gap)
   text("Points",x,y_adjust*y+4*gap)
+  pop()
   
   let max_races;
-  let compareA_races;
-  let compareB_races;
-  
-  if(compareA.num_of_races > compareB.num_of_races){
-    max_races = compareA.num_of_races;
+  if(compareA_races > compareB_races){
+    max_races = compareA_races
   }else{
-    max_races = compareB.num_of_races;
+    max_races = compareB_races
   }
   if(leftside=='driver'){
       push()
       fill('#00A498')
+      textSize(h *0.06)
+      textAlign(CENTER)
+      textFont('Consolas')
+      textStyle(BOLD)
       text(compareA.forename+" "+compareA.surname,x-5*gap,y-0.6*gap);
       pop()
 
@@ -192,13 +209,42 @@ function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h){
     
   
   }
+  if(leftside == 'constructor'){
+    push()
+    fill('#00A498')
+    textSize(h *0.06)
+    textAlign(CENTER)
+    textFont('Consolas')
+    textStyle(BOLD)
+    text(compareA.name,x-5*gap,y-0.6*gap);
+    pop()
+
+    ConstructorLogic(compareA,'left')
+
+  }
    if(rightside=='driver'){
     push()
     fill('#DC0022')
+    textSize(h *0.06)
+    textAlign(CENTER)
+    textFont('Consolas')
+    textStyle(BOLD)
     text(compareB.forename+" "+compareB.surname,x+5*gap,y-0.6*gap);
     pop()
 
     DriverLogic(compareB,'right')
+  }
+  if(rightside=='constructor'){
+    push()
+    fill('#DC0022')
+    textSize(h *0.06)
+    textAlign(CENTER)
+    textFont('Consolas')
+    textStyle(BOLD)
+    text(compareB.name,x+5*gap,y-0.6*gap);
+    pop()
+
+    ConstructorLogic(compareB,'right')
   }
   
   function DriverLogic(driver,mode){
@@ -206,35 +252,204 @@ function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h){
     fill('#00A498')
      //mode = left side or right side
      if(mode=="left"){
-       rect(x-1.2*gap,y_adjust*y-0.5*gap,-(barLength(driver.wins)),gap*0.7,0,10,10,0)
-       rect(x-1.2*gap,y_adjust*y+0.45*gap,-(barLength(driver.poles)),gap*0.7,0,10,10,0)
-       rect(x-1.2*gap,y_adjust*y+1.45*gap,-(barLength(driver.podiums)),gap*0.7,0,10,10,0)
-       rect(x-1.2*gap,y_adjust*y+2.5*gap,-(barLength(driver.num_of_races)),gap*0.7,0,10,10,0)
-       text(driver.career_points,x-2*gap,y_adjust*y+4*gap);
+      push()
+      textSize(h *0.06)
+      textAlign(CENTER)
+      textFont('Consolas')
+      textStyle(BOLD)
+      drawDriverBars(-1)
+      pop()
+      
      }
     pop()
     push()
     fill('#DC0022')
      if(mode=="right"){
-        rect(x+1.2*gap,y_adjust*y-0.5*gap,(barLength(driver.wins)),gap*0.7,0,10,10,0)
-       rect(x+1.2*gap,y_adjust*y+0.45*gap,(barLength(driver.poles)),gap*0.7,0,10,10,0)
-       rect(x+1.2*gap,y_adjust*y+1.45*gap,(barLength(driver.podiums)),gap*0.7,0,10,10,0)
-       rect(x+1.2*gap,y_adjust*y+2.5*gap,(barLength(driver.num_of_races)),gap*0.7,0,10,10,0)
-       text(driver.career_points,x+2*gap,y_adjust*y+4*gap);
-     }
-       
+      push()
+      textSize(h *0.06)
+      textAlign(CENTER)
+      textFont('Consolas')
+      textStyle(BOLD)
+      drawDriverBars(1)
+      pop()
+     } 
     pop()
+
+    /**
+   * Draws stats bars.
+   * @function
+   * @param {integer} invert (-1 or 1) depending on what side you want it displaying
+   * @returns Draws stats bars.
+   */
+    function drawDriverBars(invert){
+      rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(driver.wins)),gap*0.7,0,10,10,0);text(driver.wins,(x+invert*2*gap)+invert*(barLength(driver.wins)),y+(0.3*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+0.45*gap,invert*(barLength(driver.poles)),gap*0.7,0,10,10,0);text(driver.poles,(x+invert*2*gap)+invert*(barLength(driver.poles)),y+(1.25*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+1.45*gap,invert*(barLength(driver.podiums)),gap*0.7,0,10,10,0);text(driver.podiums,(x+invert*2*gap)+invert*(barLength(driver.podiums)),y+(2.25*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+2.5*gap,invert*(barLength(driver.num_of_races)),gap*0.7,0,10,10,0);text(driver.num_of_races,(x+invert*2*gap)+invert*(barLength(driver.num_of_races)),y+(3.25*gap));
+       text(driver.career_points,x+invert*2*gap,y_adjust*y+4*gap);
+    }
+
   }
   
-  function ConstructorLogic(mode){
-  }
+  function ConstructorLogic(constructor,mode){
+    push()
+    fill('#00A498')
+     //mode = left side or right side
+     if(mode=="left"){
+      drawConstructorsBars(-1)
+     }
+    pop()
+    push()
+    fill('#DC0022')
+     if(mode=="right"){
+      drawConstructorsBars(1)
+     }
+    pop()
 
+     /**
+     * Draws stats bars.
+     * @function
+     * @param {integer} invert (-1 or 1) depending on what side you want it displaying
+     * @returns Draws stats bars.
+     */
+
+    function drawConstructorsBars(invert){
+       rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(constructor.wins)),gap*0.7,0,10,10,0);text(constructor.wins,(x+invert*2*gap)+invert*(barLength(constructor.wins)),y+(0.3*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+0.45*gap,invert*(barLength(constructor.poles)),gap*0.7,0,10,10,0);text(constructor.poles,(x+invert*2*gap)+invert*(barLength(constructor.poles)),y+(1.25*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+1.45*gap,invert*(barLength(constructor.podiums)),gap*0.7,0,10,10,0);text(constructor.podiums,(x+invert*2*gap)+invert*(barLength(constructor.podiums)),y+(2.25*gap));
+       rect(x+invert*1.2*gap,y_adjust*y+2.5*gap,invert*(barLength(constructor.car_entries)),gap*0.7,0,10,10,0);text(constructor.car_entries,(x+invert*2*gap)+invert*(barLength(constructor.car_entries)),y+(3.25*gap));
+       text(constructor.career_points,x+invert*2*gap,y_adjust*y+4*gap);
+    }
+
+   
+  }
+  /**
+   * Get scaled length of a bar.
+   * @function
+   * @param {integer} value value of stats you are making a bar for
+   * @returns length of the scaled bar.
+   */
   function barLength(value){
     value = (value/max_races)*(w*0.7)
     return value
   }
   
+}
+
+function createCompareFinishGraph(finishesA,finishesB,x,y,w,h){
+  //data point A
+  let pos_freqA = getFrequencyArray(finishesA)
+  let worstA = pos_freqA.at(-1)[0]
+
+  //data point B
+  let pos_freqB = getFrequencyArray(finishesB)
+  let worstB = pos_freqB.at(-1)[0]
+  
+  //get number of position
+  let num_of_posA = pos_freqA.length
+  let num_of_posB = pos_freqB.length
+  let bar_height
+  if(num_of_posA > num_of_posB){
+    bar_height = h/(1.05*(num_of_posA))
+    bar_height = Math.floor(bar_height*0.6)
+  }else{
+    bar_height = h/(1.05*(num_of_posB))
+    bar_height = Math.floor(bar_height*0.6)
+  }
+
+  
+  //create the positions
+  if(worstA>worstB){
+    for(let pos =1;pos<=worstA;pos++){
+      push()
+      textAlign(CENTER)
+      textSize(bar_height*1.5)
+      textFont('Consolas')
+      let gap = bar_height*1.55
+      fill(0)
+      text(pos,x,y+(0.95*gap)*(1.2*pos))
+      pop()
+  }
+  }else{
+    for(let pos =1;pos<=worstB;pos++){
+      push()
+      textAlign(CENTER)
+      textSize(bar_height*1.5)
+      textFont('Consolas')
+      let gap = bar_height*1.55
+      fill(0)
+      text(pos,x,y+(0.95*gap)*(1.2*pos))
+      pop()
+  }
+  }
   
   
+  //get max frequency of any positon
+  let max_freq = 0
+  let max_freqA = 0
+  let max_freqB = 0
+  for(let i=0 ; i<pos_freqA.length;i++){
+    if(pos_freqA[i][1]>max_freqA){
+      max_freqA = pos_freqA[i][1]
+    }
+  }
+  for(let i=0 ; i<pos_freqB.length;i++){
+    if(pos_freqB[i][1]>max_freqB){
+      max_freqB = pos_freqB[i][1]
+    }
+  }
+
+  if(max_freqA>max_freqB){
+    max_freq = max_freqA
+  }else{
+    max_freq = max_freqB
+  }
   
+  //create position bars and text
+  for(let pos =0; pos<worstA;pos++){
+    push()
+    fill('#00A498')
+    textFont('Consolas')
+    textSize(bar_height)
+    textAlign(RIGHT)
+    let bar_length = ((w-5)/max_freq)*(0.9*(pos_freqA[pos][1])) //-5 so that it looks nicer(not flush with border)
+    rect(x-2*bar_height,y+10+(1.45*bar_height)*(1.2*pos),-(bar_length),bar_height,0,8,8,0)
+    fill(0)
+    text(pos_freqA[pos][1],(x-(bar_length)-5)-2*bar_height,y+5+bar_height+(1.48*bar_height)*(1.2*pos))
+    pop()
+  }
+
+  for(let pos =0; pos<worstB;pos++){
+    push()
+    fill('#DC0022')
+    textFont('Consolas')
+    textSize(bar_height)
+    textAlign(RIGHT)
+    let bar_length = ((w-5)/max_freq)*(0.9*(pos_freqB[pos][1])) //-5 so that it looks nicer(not flush with border)
+    rect(x+2*bar_height,y+10+(1.45*bar_height)*(1.2*pos),(bar_length),bar_height,0,8,8,0)
+    fill(0)
+    text(pos_freqB[pos][1],(x+(bar_length)+1.75*bar_height)+2*bar_height,y+5+bar_height+(1.48*bar_height)*(1.2*pos))
+    pop()
+  }
+
+  //create axis bars
+  push()
+  let axis_scale = ((w-5)/max_freq)*(0.9*(max_freq))
+  fill(0)
+  textAlign(CENTER)
+  rect(x-(axis_scale+2*bar_height),y+h,2*(axis_scale+2*bar_height),5,2,2,2,2)
+  rect(x-(axis_scale+2*bar_height),y+h,0.01*w,-0.025*w,0,0,2,2)
+  rect(x+(axis_scale+2*bar_height),y+h,-0.01*w,-0.025*w,0,0,2,2)
+  textSize(bar_height*1.7)
+  textStyle(BOLD)
+  push()
+  text("Position",x,y)
+  pop()
+  textSize(bar_height*3)
+  textAlign(CENTER)
+  text(max_freq,x+w,y+h+bar_height*3)
+  text(max_freq,x-w,y+h+bar_height*3)
+  text("Frequency",x,y+h+bar_height*3.2)
+  pop()
+
 }

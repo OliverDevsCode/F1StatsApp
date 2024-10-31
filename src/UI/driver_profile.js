@@ -52,7 +52,7 @@ function  draw_Driver_Profile(){
 
     //distribution graph
 
-    drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.4,windowHeight*0.5)
+    drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
 
     
 
