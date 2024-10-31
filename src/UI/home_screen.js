@@ -4,7 +4,7 @@ function draw_Home_Screen(){
     searchBar = createInput() // may need to be outside function so its a global and cam be accessed anywhere
     push()
     searchBar.attribute('placeholder','Search - Driver/Constructor')
-    searchBar.style('font-size', (windowWidth)*0.065);
+    searchBar.style('font-size', (windowWidth)*0.020+"px");
     searchBar.style('font-style', 'italic');
     searchBar.style('font-family','Consolas')
     searchBar.style('border-radius', '20px');

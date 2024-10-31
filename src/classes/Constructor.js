@@ -21,6 +21,7 @@ class Constructor{
     #fastest_laps;
     #career_points;
     #list_of_finishes;
+    #car_entries;
 
     /**
      * Create a DriverStatistics Object.
@@ -47,6 +48,7 @@ class Constructor{
         this.#points_scoring_races = stats.Points_scoring_races;
         this.#list_of_finishes = stats.List_of_finishes;
         this.#career_points = stats.Career_points
+        this.#car_entries = stats.car_entries
     }
 
     /**
@@ -169,4 +171,14 @@ class Constructor{
      get list_of_finishes(){
         return this.#list_of_finishes
     }
+
+    /**
+   * Get number of cars entered into races
+   * @method
+   * @returns {string} number of cars entered in constructor history
+   */
+
+  get car_entries(){
+    return this.#car_entries
+  }
 }

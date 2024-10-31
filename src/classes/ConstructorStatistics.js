@@ -165,11 +165,22 @@ class ConstructorStatistics{
     return this.#statistics[7]
   }
 
+  /**
+   * Get number of cars entered into races
+   * @method
+   * @returns {string} number of cars entered in constructor history
+   */
+
+  get car_entries(){
+    return this.#statistics[10]
+  }
+
 //public methods TESTING
 
 calcProfileStats(){
   let wins = 0;
   let poles = 0;
+  let list_pole_raceIds = [];
   let podiums = 0;
   let dnfs = 0;
   let races_enters = []
@@ -179,6 +190,7 @@ calcProfileStats(){
   let points_tally = 0;
   let list_of_finishes = [];
   let pole_to_win =0;
+  let car_entries = 0;
   for(let index =0; index < this.#results.length;index++){
 
     //wins calculate
@@ -196,16 +208,6 @@ calcProfileStats(){
       dnfs ++
     }
 
-    //races
-    if(this.#results.constructorId(index)==this.#constructorID){
-      if(races_enters.includes(this.#results.raceId(index))){
-      }else{
-      races += 1
-      races_enters.push(this.#results.raceId(index))
-
-      }
-    }
-
     //points scoring races
     if(this.#results.points(index)>0 && this.#results.constructorId(index)==this.#constructorID){
       if(races_enters.includes(this.#results.raceId(index))){
@@ -214,6 +216,19 @@ calcProfileStats(){
 
       }
     }
+
+    //races
+    if(this.#results.constructorId(index)==this.#constructorID){
+      if(races_enters.includes(this.#results.raceId(index))){
+      }else{
+      races += 1
+      races_enters.push(this.#results.raceId(index))
+
+      }
+      car_entries ++
+    }
+
+    
 
     //fastest laps
     if(this.#results.rank(index)==1 && this.#results.constructorId(index)==this.#constructorID){
@@ -234,23 +249,26 @@ calcProfileStats(){
     if((this.#results.raceId(index)<1077 || this.#results.raceId(index)>1101)&& this.#results.constructorId(index) == this.#constructorID){
       if(this.#results.grid(index)==1){
         poles ++
+        list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
         if(parseInt(this.#results.positionOrder(index))==1){
           pole_to_win ++
         }
       }
     }
     if(((this.#results.raceId(index)>=1077) && (this.#results.raceId(index)<=1101)) && this.#results.constructorId(index)==this.#constructorID){
-      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == true){
-        if((this.#isSprintWeekend(this.#results.raceId(index)))[1]==1){
+      if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[0] == true){
+        if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[1]==1 && (list_pole_raceIds.includes(parseInt(this.#results.raceId(index)))==false)){
           poles ++
+          list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
           if(parseInt(this.#results.positionOrder(index))==1){
             pole_to_win ++
           }
         }
       }
-      if((this.#isSprintWeekend(this.#results.raceId(index)))[0] == false){
+      if((this.#isSprintWeekend(this.#results.raceId(index),list_pole_raceIds))[0] == false){
         if(this.#results.grid(index)==1){
           poles ++
+          list_pole_raceIds.push(parseInt(this.#results.raceId(index)))
           if(parseInt(this.#results.positionOrder(index))==1){
             pole_to_win ++
           }
@@ -263,7 +281,8 @@ calcProfileStats(){
 
 
   }//database loop end
-  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
+  this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win,car_entries)
+  
 }//createProfileStats end
 
 
@@ -272,7 +291,7 @@ calcProfileStats(){
    * @method
    * @returns {array} boolean of sprintWeekend + grid position
    */
-#isSprintWeekend(raceID){
+#isSprintWeekend(raceID,list_pole_raceIds){
   let isSprint = [false]
   for(let index =0; index < this.#sprintResults.length;index++){
     if(this.#sprintResults.raceId(index)==raceID && this.#sprintResults.constructorId(index)==this.#constructorID){

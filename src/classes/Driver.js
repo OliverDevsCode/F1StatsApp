@@ -47,7 +47,6 @@ class Driver{
     createProfileStats(driversDB,resultsDB,sprintResultsDB){
         let stats = new DriverStatistics(this.#driverID,resultsDB,sprintResultsDB,driversDB)
         stats.calcProfileStats()
-        console.log("STATS CALCULATED")
         this.#number = stats.number;
         this.#forename = stats.forename;
         this.#surname = stats.surname;
