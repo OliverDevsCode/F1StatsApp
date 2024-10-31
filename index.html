@@ -18,6 +18,7 @@
       <button class="homebutton" onclick="goHome()" type="button">Home</button>
       <button class="comparebutton" onclick="goCompare()" type="button">Compare</button>
       <button class="seasonbutton" onclick="goSeason()" type="button">Season</button>
+      <button class="searchbutton" onclick="goSearch()" type="button">Search</button>
     </h1>
       <hr color="black" size="8px" />
     </div>
@@ -55,16 +56,20 @@
       <script>
         function goHome(){
           console.log("GO HOME")
-          displaymode = 1
+          displaymode = 1;
         }
         function goCompare(){
           console.log("GO COMPARE")
-          displaymode = 2
+          displaymode = 2;
     
         }
         function goSeason(){
           console.log("GO SEASON")
-          displaymode = 3
+          displaymode = 3;
+        }
+        function goSearch(){
+          console.log("GO SEARCH")
+          displaymode = 4;
         }
       </script>
 
