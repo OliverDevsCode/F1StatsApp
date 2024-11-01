@@ -59,15 +59,32 @@ function draw() {
 
     //draw new screen
     draw_Compare_Screen();
-
-    driverA_text.input(displayDriverAInDropDown)
-    driverB_text.input(displayDriverBInDropDown)
     
     const millis = Date.now() - start;//search timer
     console.log(`Search took ${millis}ms`)//search timer
 
     console.log("Compare Screen Drawn")
     displaymode = -2
+  }
+
+  //season screen
+  if(displaymode==3){
+
+    //prep canvas
+    clearP5Elements();
+    clear();
+    background('#E1E0D7');
+
+    const start = Date.now()//search timer
+
+    //draw new screen
+    draw_Season_Screen();
+    
+    const millis = Date.now() - start;//search timer
+    console.log(`Season took ${millis}ms`)//search timer
+
+    console.log("Season Screen Drawn")
+    displaymode = -3
   }
 
 

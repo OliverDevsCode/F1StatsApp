@@ -12,13 +12,16 @@ let constructorB_text;
 let constructorA_dropdown;
 let constructorB_dropdown;
 
-let compare_button;
+let compareButton;
 
 function draw_Compare_Screen(){
+  backButton.show()
   createCompareUI()
   displayDriverAInDropDown()
   displayDriverBInDropDown()
-  compare_button.mousePressed(draw_Comparison_data)
+  driverA_text.input(displayDriverAInDropDown)
+  driverB_text.input(displayDriverBInDropDown)
+  compareButton.mousePressed(draw_Comparison_data)
 }
 
 
@@ -73,7 +76,7 @@ function draw_Comparison_data(){
 
 function createCompareUI(){
 
-  compare_button = createNewButton('Compare',windowWidth/2-cnvOffset.x-((windowWidth)*0.065)+20,cnvOffset.y+20)
+  compareButton = createNewButton('Compare',windowWidth/2-cnvOffset.x-((windowWidth)*0.065)+20,cnvOffset.y+20)
   
 
   driverA_text = createInputBox('type name',windowWidth*0.005+cnvOffset.x,cnvOffset.y+10,windowWidth*0.2,windowHeight*0.05)
