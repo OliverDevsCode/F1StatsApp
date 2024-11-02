@@ -33,8 +33,9 @@ function draw() {
 
   //home screen
   if(displaymode==1){
-
     //prep canvas
+    cnv.show()
+    hideGraph()
     clearP5Elements();
     clear();
     background('#E1E0D7');
@@ -52,6 +53,8 @@ function draw() {
 
     //prep canvas
     clearP5Elements();
+    cnv.show()
+    hideGraph()
     clear();
     background('#E1E0D7');
 
@@ -93,6 +96,8 @@ function draw() {
 
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7');
 
@@ -118,6 +123,8 @@ function draw() {
   if(displaymode == 5){
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7')
 
@@ -135,6 +142,8 @@ function draw() {
   if(displaymode == 6){
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7')
     draw_Constructor_Profile()

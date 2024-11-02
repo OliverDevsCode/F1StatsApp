@@ -97,3 +97,22 @@ function createNewButton(name,x,y){
 
     return button
 }
+
+function createSeasonDropDown(x,y,w,h){
+    let menu = createSelect();
+    let year = new Date().getFullYear()
+    menu.position(x, y);
+    menu.size(w,h)
+    menu.style('border-radius', '10px')
+    menu.style('font-family', 'Consolas');
+    menu.style('font-size', '18px');
+    menu.style('border', '3px solid black')
+    
+    for(let p=0;p <= year-1950;p++){
+    let element = (year-p) 
+    menu.option(element);
+
+    }
+    
+    return menu
+  }
