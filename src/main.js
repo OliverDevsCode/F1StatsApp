@@ -128,11 +128,11 @@ function draw() {
     clear()
     background('#E1E0D7')
 
-    const start = Date.now()//search timer
+    const start = Date.now()//profile timer
     //draw profile
     draw_Driver_Profile()
-    const millis = Date.now() - start;//search timer
-    console.log(`Profile took ${millis}ms`)//search timer
+    const millis = Date.now() - start;//profile timer
+    console.log(`Profile took ${millis}ms`)//profile timer
 
     console.log("Driver Profile Drawn")
     displaymode = -5

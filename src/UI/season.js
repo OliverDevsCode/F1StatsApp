@@ -43,7 +43,7 @@ function drawChampionshipResults(){
   }else{
     season_raceIds = current_season_race_ids
   }
-  // console.log(JSON.stringify(season_raceIds))
+  console.log(season_raceIds)
 
 
   let current_drivers_IDs = []
@@ -68,7 +68,7 @@ function drawChampionshipResults(){
     driver.createHomePageStats(driversDB);
     current_drivers.push(driver.forename+" "+driver.surname)
   }
-  // console.log(current_drivers)
+  console.log(current_drivers)
 
   //get driver points for each race
   let season_data = []
@@ -84,13 +84,21 @@ function drawChampionshipResults(){
         if(parseInt(driverStandingsDB.driverId(index))==parseInt(current_drivers_IDs[driver_pos])){
           race_data.push(parseInt(driverStandingsDB.points(index)))
            index -- 
-          driver_pos ++
 
         }else{
           race_data.push(0)
-          driver_pos ++
         }
+        driver_pos++
        
+      }
+      console.log("data produced",race_data.length-1)
+      console.log("end of season driver count",current_drivers_IDs.length)
+      if((race_data.length-1)<current_drivers_IDs.length){
+        extension = (current_drivers_IDs.length-(race_data.length-1))
+        for(let extend = 0;extend<extension;extend++){
+          console.log("padded a 0")
+          race_data.push(0)
+        }
       }
       season_data.push(race_data)
       race_pos ++
@@ -101,12 +109,12 @@ function drawChampionshipResults(){
   }
   // console.log("races found",races_found)
 
-  // console.log(JSON.stringify(season_data.reverse()))
+  console.log(season_data.reverse())
   ticks = []
   for(let p=1;p<=current_season_race_ids.length;p++){
     ticks.push(p)
   }
 
-  google.charts.setOnLoadCallback(drawBasic(current_drivers,season_data,ticks,year));
+  google.charts.setOnLoadCallback(drawLineGraph(current_drivers,season_data,ticks,year));
   showGraph()
 }

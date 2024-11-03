@@ -8,7 +8,7 @@ function showGraph(){
   document.getElementById('chart_div').style.display = "block";
 }
 
-function drawBasic(drivers_data,season_data,ticks_data,year) {
+function drawLineGraph(drivers_data,season_data,ticks_data,year) {
 
 let drivers = drivers_data
       var data = new google.visualization.DataTable();
