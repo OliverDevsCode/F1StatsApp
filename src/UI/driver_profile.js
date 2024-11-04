@@ -11,10 +11,54 @@ function  draw_Driver_Profile(){
         // console.log("TOO MANY") testing
         resizeCanvas(windowWidth,((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5))
     }
-    
-    
-    //creating driver object
+
     let driverA = new Driver(driverID)
+    drawDriverStats(driverA,gap)
+    
+
+    //adjust distribution graph
+    sliderStart = createSlider(1,(driverA.list_of_finishes).length,1)
+    sliderStart.position(windowWidth*0.65+cnvOffset.x, windowHeight*0.65+cnvOffset.y)
+    let startValue = sliderStart.value()
+    p5_elements.push(sliderStart)
+
+    sliderEnd = createSlider(1,(driverA.list_of_finishes).length,(driverA.list_of_finishes).length)
+    sliderEnd.position(windowWidth*0.65+cnvOffset.x, windowHeight*0.7+cnvOffset.y)
+    let endValue = sliderEnd.value()
+    p5_elements.push(sliderEnd);
+
+    sliderChanged()
+    sliderStart.input(sliderChanged);
+    sliderEnd.input(sliderChanged);
+
+    
+
+    function sliderChanged(){
+        startValue = sliderStart.value()
+        endValue = sliderEnd.value()
+    //prevent start slider being greater than end slider
+        if (startValue > endValue) {
+            sliderEnd.value(startValue);
+        }
+        //display postion
+ 
+        clear()
+        drawDriverStats(driverA,gap)
+        let race_selection = (driverA.list_of_finishes).slice(startValue-1,endValue-1)
+        drawFinishGraph(race_selection,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+        text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
+        text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
+
+
+        }
+    
+
+    
+
+}
+
+function drawDriverStats(driverA,gap){
+    //creating driver object
     driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB);
     push()
     textAlign(LEFT)
@@ -51,12 +95,6 @@ function  draw_Driver_Profile(){
     drawPie("DNFs",windowWidth/9+1.5*((windowHeight/5)),((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,driverA.num_of_races-driverA.dnfs,driverA.num_of_races) // dnf graph
 
     //distribution graph
-
-    drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
-
-    
-
-    
 
 }
 
