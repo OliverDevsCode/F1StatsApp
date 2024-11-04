@@ -115,14 +115,14 @@ function drawFinishGraph(finishes,x,y,w,h){
 
 function getFrequencyArray(list_of_finishes){
 
-  let extend_by = 20-list_of_finishes.length
   list_of_finishes.sort(function(a, b){return a - b});
   let max_finish = list_of_finishes.at(-1)
+  let extend_by = 20-max_finish
 
   let len_finishes = list_of_finishes.length
   let extended = false
   if(max_finish <20){
-    len_finishes = 19
+    len_finishes + extend_by
     for(let p = 0; p<extend_by;p++){
       list_of_finishes.push(100)
     }
@@ -152,7 +152,7 @@ function getFrequencyArray(list_of_finishes){
 }  
 
   if(extended == true){
-      for(let i=0;i<=max_finish;i++){
+      for(let i=0;i<80;i++){
         place_freq.pop()
       }
     

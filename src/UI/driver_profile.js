@@ -37,19 +37,18 @@ function  draw_Driver_Profile(){
         startValue = sliderStart.value()
         endValue = sliderEnd.value()
     //prevent start slider being greater than end slider
-        if (startValue > endValue) {
+        if (startValue >= endValue) {
             sliderEnd.value(startValue+1);
+        }else{
+            clear()
+            drawDriverStats(driverA,gap)
+            let race_selection = (driverA.list_of_finishes).slice(startValue-1,endValue-1)
+            drawFinishGraph(race_selection,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+            text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
+            text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
         }
         //display postion
-        startValue = sliderStart.value()
-        endValue = sliderEnd.value()
- 
-        clear()
-        drawDriverStats(driverA,gap)
-        let race_selection = (driverA.list_of_finishes).slice(startValue-1,endValue-1)
-        drawFinishGraph(race_selection,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
-        text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
-        text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
+        
 
 
         }
@@ -101,5 +100,8 @@ function drawDriverStats(driverA,gap){
 }
 
 function change_mode_to_driver_profile(){
-    displaymode = 5
+    let userinput = driverInput.value()
+    if(userinput.length>0){
+        displaymode = 5
+    }
 }
