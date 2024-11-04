@@ -38,9 +38,11 @@ function  draw_Driver_Profile(){
         endValue = sliderEnd.value()
     //prevent start slider being greater than end slider
         if (startValue > endValue) {
-            sliderEnd.value(startValue);
+            sliderEnd.value(startValue+1);
         }
         //display postion
+        startValue = sliderStart.value()
+        endValue = sliderEnd.value()
  
         clear()
         drawDriverStats(driverA,gap)

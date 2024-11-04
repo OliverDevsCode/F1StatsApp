@@ -121,7 +121,7 @@ function getFrequencyArray(list_of_finishes){
 
   let len_finishes = list_of_finishes.length
   let extended = false
-  if(list_of_finishes.length <20){
+  if(max_finish <20){
     len_finishes = 19
     for(let p = 0; p<extend_by;p++){
       list_of_finishes.push(100)
@@ -152,11 +152,11 @@ function getFrequencyArray(list_of_finishes){
 }  
 
   if(extended == true){
-    for(let i=0;i<(100-max_finish);i++){
-      place_freq.pop()
-    }
+      for(let i=0;i<=max_finish;i++){
+        place_freq.pop()
+      }
+    
   }
-  
   return place_freq
   
 }
