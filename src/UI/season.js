@@ -4,12 +4,9 @@ function draw_Season_Screen(){
   year = new Date().getFullYear()
   season_select = createSeasonDropDown(cnvOffset.x,cnvOffset.y,80,40);
   p5_elements.push(season_select);
-  let season_button = createNewButton("Enter",cnvOffset.x+90,cnvOffset.y+5);
-  p5_elements.push(season_button);
-
   drawChampionshipResults()
   
-  season_button.mousePressed(drawChampionshipResults)
+  season_select.input(drawChampionshipResults)
 
   
 }
@@ -43,7 +40,7 @@ function drawChampionshipResults(){
   }else{
     season_raceIds = current_season_race_ids
   }
-  console.log(season_raceIds)
+  // console.log(season_raceIds)
 
 
   let current_drivers_IDs = []
@@ -68,7 +65,7 @@ function drawChampionshipResults(){
     driver.createHomePageStats(driversDB);
     current_drivers.push(driver.forename+" "+driver.surname)
   }
-  console.log(current_drivers)
+  // console.log(current_drivers)
 
   //get driver points for each race
   let season_data = []
@@ -91,8 +88,6 @@ function drawChampionshipResults(){
         driver_pos++
        
       }
-      console.log("data produced",race_data.length-1)
-      console.log("end of season driver count",current_drivers_IDs.length)
       if((race_data.length-1)<current_drivers_IDs.length){
         extension = (current_drivers_IDs.length-(race_data.length-1))
         for(let extend = 0;extend<extension;extend++){
@@ -107,7 +102,7 @@ function drawChampionshipResults(){
     }
 
   }
-  // console.log("races found",races_found)
+  console.log("races found",races_found)
 
   console.log(season_data.reverse())
   ticks = []

@@ -15,6 +15,7 @@ function  draw_Constructor_Profile(){
     
     //creating constructor object
     let constructorA = new Constructor(constructorID)
+    constructorA.createProfileStats(constructorsDB,resultsDB,sprintResultsDB);
     drawConstructorStats(constructorA,gap)
 
     //adjust distribution graph
@@ -56,7 +57,6 @@ function  draw_Constructor_Profile(){
 }
 
 function drawConstructorStats(constructorA,gap){
-    constructorA.createProfileStats(constructorsDB,resultsDB,sprintResultsDB);
     push()
     textAlign(LEFT)
     textFont('Consolas')

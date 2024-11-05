@@ -13,6 +13,7 @@ function  draw_Driver_Profile(){
     }
 
     let driverA = new Driver(driverID)
+    driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB);
     drawDriverStats(driverA,gap)
     
 
@@ -60,7 +61,6 @@ function  draw_Driver_Profile(){
 
 function drawDriverStats(driverA,gap){
     //creating driver object
-    driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB);
     push()
     textAlign(LEFT)
     textFont('Consolas')
