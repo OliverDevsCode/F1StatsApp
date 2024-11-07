@@ -33,8 +33,8 @@ class Constructor{
         this.#constructorID = constructorID
     }
 
-    createProfileStats(constructorsDB,resultsDB,sprintResultsDB){
-        let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorsDB)
+    createProfileStats(constructorsDB,resultsDB,sprintResultsDB,range){
+        let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorsDB,range)
         stats.calcProfileStats()
         this.#name = stats.name;
         this.#nationality = stats.nationality;

@@ -6,6 +6,7 @@ function  draw_Constructor_Profile(){
     let constructorID = constructorsDB.constructorId(constructor_name)
 
     let gap = windowWidth/50 //used for spacing
+    let range; //used for dynamic stats
     
     if(((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5)>cnv.height){
         // console.log("TOO MANY") testing
@@ -33,6 +34,16 @@ function  draw_Constructor_Profile(){
     sliderStart.input(sliderChanged);
     sliderEnd.input(sliderChanged);
 
+    if((constructorA.list_of_finishes).length==1){
+        sliderStart.hide();
+        sliderEnd.hide();
+        constructorA.createProfileStats(constructorsDB,resultsDB,sprintResultsDB);
+        drawConstructorStats(constructorA,gap)
+        drawFinishGraph(constructorA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+
+
+    }
+
     function sliderChanged(){
         startValue = sliderStart.value()
         endValue = sliderEnd.value()
@@ -41,9 +52,10 @@ function  draw_Constructor_Profile(){
             sliderEnd.value(startValue+1);
         }else{
             clear()
-            drawConstructorStats(constructorA,gap)
-            let race_selection = (constructorA.list_of_finishes).slice(startValue-1,endValue-1)
-            drawFinishGraph(race_selection,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+            range = [startValue-1,endValue-1]
+            constructorA.createProfileStats(constructorsDB,resultsDB,sprintResultsDB,range);
+            drawConstructorStats(constructorA,gap);
+            drawFinishGraph(constructorA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
             text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
             text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
         }

@@ -29,9 +29,20 @@ function  draw_Driver_Profile(){
     let endValue = sliderEnd.value()
     p5_elements.push(sliderEnd);
 
+    if((driverA.list_of_finishes).length==1){
+        sliderStart.hide();
+        sliderEnd.hide();
+        driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range);
+        drawDriverStats(driverA,gap)
+        drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+
+    }
+
     sliderChanged()
     sliderStart.input(sliderChanged);
     sliderEnd.input(sliderChanged);
+
+    
 
 
     
@@ -46,10 +57,8 @@ function  draw_Driver_Profile(){
         }else{
             clear()
             range = [startValue-1,endValue-1]
-            console.log(`range ${range}`)
             driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range);
             drawDriverStats(driverA,gap)
-            console.log("list of finushes before algorithm ", driverA.list_of_finishes)
             drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
             text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
             text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);

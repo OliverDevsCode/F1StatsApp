@@ -115,7 +115,6 @@ function drawFinishGraph(finishes,x,y,w,h){
 }
 
 function getFrequencyArray(list_of_finishes){
-  console.log("list of finishes",list_of_finishes)
 
   list_of_finishes.sort(function(a, b){return a - b});
   let max_finish = list_of_finishes.at(-1)

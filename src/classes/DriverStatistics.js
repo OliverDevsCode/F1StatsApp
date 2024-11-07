@@ -24,6 +24,7 @@ class DriverStatistics{
      * @param {object} resultsDB - An instance of Results Class.
      * @param {object} SprintresultsDB - An instance of SprintResults Class.
      * @param {object} DriversDB - An instance of Drivers Class.
+     * @param {array} range - range of race's taken into account
      *
      */
 
@@ -226,11 +227,11 @@ calcProfileStats(){
   if(this.#range == undefined){
     this.#range = [0,resultsDB.length]
   }
-  let driver_found = 0
+  let driver_found = 0;
   for(let index =0; index < this.#results.length;index++){
 
     if(this.#results.driverId(index)==this.#driverID){
-      if(driver_found >= this.#range[0] && driver_found < this.#range[1]){
+      if(driver_found >= this.#range[0] && driver_found <= this.#range[1]){
 
       //wins calculate
       if(this.#results.position(index)==1 && this.#results.driverId(index)==this.#driverID){
@@ -300,12 +301,10 @@ calcProfileStats(){
       
         }//calculate poles end
       }
-      console.log("in range")
       }
       driver_found ++
     }
   }//database loop end
-  console.log("driver found",driver_found)
   this.#statistics.push(wins,podiums,dnfs,races,points_scoring_races,fastest_laps,points_tally,list_of_finishes,poles,pole_to_win)
 }//createProfileStats end
 
