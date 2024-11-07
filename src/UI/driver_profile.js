@@ -6,6 +6,7 @@ function  draw_Driver_Profile(){
     let driverID = driversDB.driverId(driver_name)
 
     let gap = windowWidth/50 //used for spacing
+    let range; //used for dynamic stats
     
     if(((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5)>cnv.height){
         // console.log("TOO MANY") testing
@@ -32,19 +33,24 @@ function  draw_Driver_Profile(){
     sliderStart.input(sliderChanged);
     sliderEnd.input(sliderChanged);
 
+
     
 
     function sliderChanged(){
         startValue = sliderStart.value()
         endValue = sliderEnd.value()
+        
     //prevent start slider being greater than end slider
         if (startValue >= endValue) {
             sliderEnd.value(startValue+1);
         }else{
             clear()
+            range = [startValue-1,endValue-1]
+            console.log(`range ${range}`)
+            driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range);
             drawDriverStats(driverA,gap)
-            let race_selection = (driverA.list_of_finishes).slice(startValue-1,endValue-1)
-            drawFinishGraph(race_selection,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+            console.log("list of finushes before algorithm ", driverA.list_of_finishes)
+            drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
             text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
             text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
         }

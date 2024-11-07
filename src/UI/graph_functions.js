@@ -106,7 +106,8 @@ function drawFinishGraph(finishes,x,y,w,h){
   rotate(-PI/2);
   text("Position",0,0)
   pop()
-  text(max_freq,x-(1.4*bar_height),y+h+bar_height*2)
+  bar_length = ((w-5)/max_freq)*(0.9*(max_freq))
+  text(max_freq,(windowWidth-(bar_length)-5),y+h+bar_height*2)
   text("Frequency",x-(1.4*bar_height)+w/2,y+h+bar_height*2)
   pop()
   
@@ -114,6 +115,7 @@ function drawFinishGraph(finishes,x,y,w,h){
 }
 
 function getFrequencyArray(list_of_finishes){
+  console.log("list of finishes",list_of_finishes)
 
   list_of_finishes.sort(function(a, b){return a - b});
   let max_finish = list_of_finishes.at(-1)
@@ -122,7 +124,7 @@ function getFrequencyArray(list_of_finishes){
   let len_finishes = list_of_finishes.length
   let extended = false
   if(max_finish <20){
-    len_finishes + extend_by
+    len_finishes += extend_by
     for(let p = 0; p<extend_by;p++){
       list_of_finishes.push(100)
     }
@@ -134,7 +136,7 @@ function getFrequencyArray(list_of_finishes){
   
   let place_freq = []
   let place = 1
-  for(let i = 0; i <= len_finishes;){
+  for(let i = 0; i < len_finishes;){
     let instance = [] //current place and positon
     instance.push(place) //push current place 
     let count = 0
