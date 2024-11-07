@@ -1,3 +1,4 @@
+let graph_config;
 function  draw_Driver_Profile(){
     backButton.show()
 
@@ -13,10 +14,25 @@ function  draw_Driver_Profile(){
         resizeCanvas(windowWidth,((windowWidth/20)+8*gap*1.5)+2*(windowHeight/5))
     }
 
+    //options for distribution graph
+
+    graph_config = createSelect()
+    p5_elements.push(graph_config)
+    push()
+    graph_config.style('font-family','consolas')
+    graph_config.style('border-radius', '10px')
+    graph_config.style('border', '3px solid black')
+    pop()
+    graph_config.position(windowWidth*0.65+cnvOffset.x,windowHeight*0.6+cnvOffset.y)
+    graph_config.option('All Results')
+    graph_config.option('Exclude DNFs')
+    graph_config.option('Exclude DSQs')
+    graph_config.option('Exclude DSQs and DNFs')
+
     let driverA = new Driver(driverID)
     driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB);
     drawDriverStats(driverA,gap)
-    
+
 
     //adjust distribution graph
     sliderStart = createSlider(1,(driverA.list_of_finishes).length,1)
@@ -34,13 +50,16 @@ function  draw_Driver_Profile(){
         sliderEnd.hide();
         driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range);
         drawDriverStats(driverA,gap)
-        drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
+        drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)
 
     }
 
     sliderChanged()
+    //p5 element interaction s
     sliderStart.input(sliderChanged);
     sliderEnd.input(sliderChanged);
+    graph_config.input(sliderChanged)
+
 
     
 
@@ -49,15 +68,14 @@ function  draw_Driver_Profile(){
 
     function sliderChanged(){
         startValue = sliderStart.value()
-        endValue = sliderEnd.value()
-        
+        endValue = sliderEnd.value()        
     //prevent start slider being greater than end slider
         if (startValue >= endValue) {
             sliderEnd.value(startValue+1);
         }else{
             clear()
             range = [startValue-1,endValue-1]
-            driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range);
+            driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range,graph_config.selected());
             drawDriverStats(driverA,gap)
             drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
             text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);

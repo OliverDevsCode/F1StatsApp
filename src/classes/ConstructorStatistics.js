@@ -180,7 +180,7 @@ class ConstructorStatistics{
 
 //public methods TESTING
 
-calcProfileStats(){
+calcProfileStats(graph_config){
   let wins = 0;
   let poles = 0;
   let list_pole_raceIds = [];
@@ -196,6 +196,9 @@ calcProfileStats(){
   let car_entries = 0;
   if(this.#range == undefined){
     this.#range = [0,resultsDB.length]
+  }
+  if(graph_config == undefined){
+    graph_config = "All Results";
   }
   let constructor_found = 0;
   for(let index =0; index < this.#results.length;index++){
@@ -251,7 +254,24 @@ calcProfileStats(){
 
         //list of finishes
         if(this.#results.constructorId(index)==this.#constructorID){
-          list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+          if(graph_config == 'All Results'){
+            list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+          }
+          if(graph_config == 'Exclude DNFs'){
+            if(this.#results.positionText(index)!='R'){
+            list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+            }
+          }
+          if(graph_config == 'Exclude DSQs'){
+            if(this.#results.positionText(index)!='D'){
+            list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+            }
+          }
+          if(graph_config == 'Exclude DSQs and DNFs'){
+            if(this.#results.positionText(index)!='D'&& this.#results.positionText(index)!='R'){
+            list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+            }
+          }
         }
 
         //calculate poles

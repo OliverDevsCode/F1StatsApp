@@ -33,9 +33,9 @@ class Constructor{
         this.#constructorID = constructorID
     }
 
-    createProfileStats(constructorsDB,resultsDB,sprintResultsDB,range){
+    createProfileStats(constructorsDB,resultsDB,sprintResultsDB,range,graph_config){
         let stats = new ConstructorStatistics(this.#constructorID,resultsDB,sprintResultsDB,constructorsDB,range)
-        stats.calcProfileStats()
+        stats.calcProfileStats(graph_config)
         this.#name = stats.name;
         this.#nationality = stats.nationality;
         this.#wins = stats.wins;

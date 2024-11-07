@@ -25,6 +25,7 @@ class DriverStatistics{
      * @param {object} SprintresultsDB - An instance of SprintResults Class.
      * @param {object} DriversDB - An instance of Drivers Class.
      * @param {array} range - range of race's taken into account
+     * 
      *
      */
 
@@ -213,7 +214,8 @@ class DriverStatistics{
 
 //public methods TESTING
 
-calcProfileStats(){
+calcProfileStats(graph_config){
+  console.log("graph config",graph_config)
   let wins = 0;
   let poles = 0;
   let podiums = 0;
@@ -226,6 +228,9 @@ calcProfileStats(){
   let pole_to_win =0;
   if(this.#range == undefined){
     this.#range = [0,resultsDB.length]
+  }
+  if(graph_config == undefined){
+    graph_config = "All Results";
   }
   let driver_found = 0;
   for(let index =0; index < this.#results.length;index++){
@@ -270,7 +275,24 @@ calcProfileStats(){
   
       //list of finishes
       if(this.#results.driverId(index)==this.#driverID){
-        list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+        if(graph_config == 'All Results'){
+          list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+        }
+        if(graph_config == 'Exclude DNFs'){
+          if(this.#results.positionText(index)!='R'){
+          list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+          }
+        }
+        if(graph_config == 'Exclude DSQs'){
+          if(this.#results.positionText(index)!='D'){
+          list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+          }
+        }
+        if(graph_config == 'Exclude DSQs and DNFs'){
+          if(this.#results.positionText(index)!='D'&& this.#results.positionText(index)!='R'){
+          list_of_finishes.push(parseInt(this.#results.positionOrder(index)))
+          }
+        }
       }
   
       //calculate poles
