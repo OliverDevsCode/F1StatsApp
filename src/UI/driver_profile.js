@@ -112,7 +112,7 @@ function drawDriverStats(driverA,gap){
     text("Wins:"+ driverA.wins+ " ("+((driverA.wins)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+gap*1.5)
     text("Poles:"+ driverA.poles+ " ("+((driverA.poles)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+2*gap*1.5)
     text("Podiums:"+ driverA.podiums+ " ("+((driverA.podiums)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+3*gap*1.5)
-    text("Fastest Laps:"+ driverA.fastest_laps+ " ("+((driverA.poles)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
+    text("Fastest Laps:"+ driverA.fastest_laps+ " ("+((driverA.fastest_laps)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
     text("DNFs:"+ driverA.dnfs+ " ("+((driverA.dnfs)/(driverA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+5*gap*1.5)
     text("Races:"+ driverA.num_of_races,windowWidth/45,(windowWidth/20)+6*gap*1.5)
     textSize(windowWidth/55)

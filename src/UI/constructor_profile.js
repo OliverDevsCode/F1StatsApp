@@ -101,7 +101,7 @@ function drawConstructorStats(constructorA,gap){
     text("Wins:"+ constructorA.wins+ "("+((constructorA.wins)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+gap*1.5)
     text("Poles:"+ constructorA.poles+ "("+((constructorA.poles)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+2*gap*1.5)
     text("Podiums:"+ constructorA.podiums+ "("+((constructorA.podiums)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+3*gap*1.5)
-    text("Fastest Laps:"+ constructorA.fastest_laps+ "("+((constructorA.poles)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
+    text("Fastest Laps:"+ constructorA.fastest_laps+ "("+((constructorA.fastest_laps)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
     text("DNFs:"+ constructorA.dnfs+ "("+((constructorA.dnfs)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+5*gap*1.5)
     text("Races:"+ constructorA.num_of_races,windowWidth/45,(windowWidth/20)+6*gap*1.5)
     textSize(windowWidth/55)
