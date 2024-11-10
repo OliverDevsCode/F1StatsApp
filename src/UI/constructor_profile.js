@@ -14,18 +14,7 @@ function  draw_Constructor_Profile(){
     }
     
     //options for distribution graph
-    graph_config = createSelect()
-    p5_elements.push(graph_config)
-    push()
-    graph_config.style('font-family','consolas')
-    graph_config.style('border-radius', '10px')
-    graph_config.style('border', '3px solid black')
-    pop()
-    graph_config.position(windowWidth*0.65+cnvOffset.x,windowHeight*0.6+cnvOffset.y)
-    graph_config.option('All Results')
-    graph_config.option('Exclude DNFs')
-    graph_config.option('Exclude DSQs')
-    graph_config.option('Exclude DSQs and DNFs')
+    profileOptions()
     
     //creating constructor object
     let constructorA = new Constructor(constructorID)
@@ -102,7 +91,7 @@ function drawConstructorStats(constructorA,gap){
     text("Poles:"+ constructorA.poles+ "("+((constructorA.poles)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+2*gap*1.5)
     text("Podiums:"+ constructorA.podiums+ "("+((constructorA.podiums)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+3*gap*1.5)
     text("Fastest Laps:"+ constructorA.fastest_laps+ "("+((constructorA.fastest_laps)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+4*gap*1.5)
-    text("DNFs:"+ constructorA.dnfs+ "("+((constructorA.dnfs)/(constructorA.num_of_races)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+5*gap*1.5)
+    text("DNFs:"+ constructorA.dnfs+ "("+((constructorA.dnfs)/(constructorA.car_entries)*100).toPrecision(4)+"%)",windowWidth/45,(windowWidth/20)+5*gap*1.5)
     text("Races:"+ constructorA.num_of_races,windowWidth/45,(windowWidth/20)+6*gap*1.5)
     textSize(windowWidth/55)
     text("Poles to Win Conversion Rate:"+ ((constructorA.poles_to_wins)/(constructorA.poles)*100).toPrecision(4) + "%",windowWidth/45,(windowWidth/20)+7*gap*1.5)
@@ -117,7 +106,7 @@ function drawConstructorStats(constructorA,gap){
 
     drawPie("Points Finishes",windowWidth/9,((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,constructorA.points_scoring_races,constructorA.num_of_races) // points finish graph
 
-    drawPie("DNFs",windowWidth/9+1.5*((windowHeight/5)),((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,(constructorA.num_of_races)-(constructorA.dnfs),constructorA.num_of_races) // dnf graph
+    drawPie("DNFs",windowWidth/9+1.5*((windowHeight/5)),((windowWidth/20)+8*gap*1.5)+(windowHeight/5),windowHeight/5,windowHeight/5,(constructorA.car_entries)-(constructorA.dnfs),constructorA.car_entries) // dnf graph
 
     
 }

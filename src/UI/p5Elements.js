@@ -116,3 +116,23 @@ function createSeasonDropDown(x,y,w,h){
     
     return menu
   }
+
+
+let graph_config;
+function profileOptions(){
+    //graph options
+    graph_config = createSelect()
+    p5_elements.push(graph_config)
+    push()
+    graph_config.style('font-family','consolas')
+    graph_config.style('border-radius', '10px')
+    graph_config.style('border', '3px solid black')
+    pop()
+    graph_config.position(windowWidth*0.65+cnvOffset.x,windowHeight*0.6+cnvOffset.y)
+    graph_config.option('All Results')
+    graph_config.option('Exclude DNFs')
+    graph_config.option('Exclude DSQs')
+    graph_config.option('Exclude DSQs and DNFs')
+    //profile sliders
+
+}

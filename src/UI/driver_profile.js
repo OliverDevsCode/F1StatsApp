@@ -1,4 +1,3 @@
-let graph_config;
 function  draw_Driver_Profile(){
     backButton.show()
 
@@ -16,18 +15,7 @@ function  draw_Driver_Profile(){
 
     //options for distribution graph
 
-    graph_config = createSelect()
-    p5_elements.push(graph_config)
-    push()
-    graph_config.style('font-family','consolas')
-    graph_config.style('border-radius', '10px')
-    graph_config.style('border', '3px solid black')
-    pop()
-    graph_config.position(windowWidth*0.65+cnvOffset.x,windowHeight*0.6+cnvOffset.y)
-    graph_config.option('All Results')
-    graph_config.option('Exclude DNFs')
-    graph_config.option('Exclude DSQs')
-    graph_config.option('Exclude DSQs and DNFs')
+    profileOptions()
 
     let driverA = new Driver(driverID)
     driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB);
@@ -37,6 +25,7 @@ function  draw_Driver_Profile(){
     //adjust distribution graph
     sliderStart = createSlider(1,(driverA.list_of_finishes).length,1)
     sliderStart.position(windowWidth*0.65+cnvOffset.x, windowHeight*0.65+cnvOffset.y)
+    sliderStart.style('background','#00A498')
     let startValue = sliderStart.value()
     p5_elements.push(sliderStart)
 
@@ -55,7 +44,7 @@ function  draw_Driver_Profile(){
     }
 
     sliderChanged()
-    //p5 element interaction s
+    //p5 element interactions
     sliderStart.input(sliderChanged);
     sliderEnd.input(sliderChanged);
     graph_config.input(sliderChanged)
@@ -78,8 +67,11 @@ function  draw_Driver_Profile(){
             driverA.createProfileStats(driversDB,resultsDB,sprintResultsDB,range,graph_config.selected());
             drawDriverStats(driverA,gap)
             drawFinishGraph(driverA.list_of_finishes,windowWidth*0.65,windowHeight*0.05,windowWidth*0.35,windowHeight*0.5)//changed width - windowWidth from *0.4 to *0.35
-            text(`Start: ${startValue}`, windowWidth*0.60, windowHeight*0.60+cnvOffset.y/2);
-            text(`End: ${endValue}`, windowWidth*0.60, windowHeight*0.65+cnvOffset.y/2);
+            push()
+            textAlign(CENTER)
+            text(`Start: ${startValue}`, windowWidth*0.65+cnvOffset.x-50, windowHeight*0.67);
+            text(`End: ${endValue}`, windowWidth*0.65+cnvOffset.x-50, windowHeight*0.72);
+            pop()
         }
         //display postion
         
