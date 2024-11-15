@@ -162,7 +162,6 @@ function getFrequencyArray(list_of_finishes){
   
 }
 
-
 /**
    * Draws compareStats.
    * @function
@@ -289,7 +288,7 @@ function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h,compareA_
    * @returns Draws stats bars.
    */
     function drawDriverBars(invert){
-      rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(driver.wins)),gap*0.7,0,10,10,0);text(driver.wins,(x+invert*2*gap)+invert*(barLength(driver.wins)),y+(0.3*gap));
+       rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(driver.wins)),gap*0.7,0,10,10,0);text(driver.wins,(x+invert*2*gap)+invert*(barLength(driver.wins)),y+(0.3*gap));
        rect(x+invert*1.2*gap,y_adjust*y+0.45*gap,invert*(barLength(driver.poles)),gap*0.7,0,10,10,0);text(driver.poles,(x+invert*2*gap)+invert*(barLength(driver.poles)),y+(1.25*gap));
        rect(x+invert*1.2*gap,y_adjust*y+1.45*gap,invert*(barLength(driver.podiums)),gap*0.7,0,10,10,0);text(driver.podiums,(x+invert*2*gap)+invert*(barLength(driver.podiums)),y+(2.25*gap));
        rect(x+invert*1.2*gap,y_adjust*y+2.5*gap,invert*(barLength(driver.num_of_races)),gap*0.7,0,10,10,0);text(driver.num_of_races,(x+invert*2*gap)+invert*(barLength(driver.num_of_races)),y+(3.25*gap));

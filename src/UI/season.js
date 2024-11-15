@@ -1,12 +1,24 @@
 let season_select;
+let drivers_list_str;
+let drivers_list_ids;
 function draw_Season_Screen(){
   cnv.hide()
   year = new Date().getFullYear()
   season_select = createSeasonDropDown(cnvOffset.x,cnvOffset.y,80,40);
+
   p5_elements.push(season_select);
   drawChampionshipResults()
-  
+
   season_select.input(drawChampionshipResults)
+  console.log(drivers_list_ids)
+  console.log(drivers_list_str)
+  let formatted_options = []
+  for(let i=0; i<drivers_list_ids.length; i ++){
+    let current_data = [drivers_list_str[i],drivers_list_ids[i]]
+    formatted_options.push(current_data)
+  }
+  let driverA_select = createDropDown(formatted_options,windowWidth*0.65+cnvOffset.x,cnvOffset.y)
+  let driverB_select = createDropDown(formatted_options,windowWidth*0.8+cnvOffset.x,cnvOffset.y)
 
   
 }
@@ -14,7 +26,7 @@ function draw_Season_Screen(){
 function drawChampionshipResults(){
   let current_year = new Date().getFullYear()
   year = season_select.value()
-  console.log("Full year =",year)
+  // console.log("Full year =",year)
   let current_season_race_ids = []
   for(let index = driverStandingsDB.length-1; index>0;){
     if(parseInt(racesDB.year(index))==year){
@@ -56,6 +68,7 @@ function drawChampionshipResults(){
     
 
   }
+  drivers_list_ids = current_drivers_IDs;
   // console.log(JSON.stringify(current_drivers_IDs))
 
   //turn id's into first and last names;
@@ -65,7 +78,7 @@ function drawChampionshipResults(){
     driver.createHomePageStats(driversDB);
     current_drivers.push(driver.forename+" "+driver.surname)
   }
-  // console.log(current_drivers)
+  drivers_list_str = current_drivers;
 
   //get driver points for each race
   let season_data = []
@@ -91,7 +104,7 @@ function drawChampionshipResults(){
       if((race_data.length-1)<current_drivers_IDs.length){
         extension = (current_drivers_IDs.length-(race_data.length-1))
         for(let extend = 0;extend<extension;extend++){
-          console.log("padded a 0")
+          // console.log("padded a 0")
           race_data.push(0)
         }
       }
@@ -102,9 +115,9 @@ function drawChampionshipResults(){
     }
 
   }
-  console.log("races found",races_found)
+  // console.log("races found",races_found)
 
-  console.log(season_data.reverse())
+  // console.log(season_data.reverse())
   ticks = []
   for(let p=1;p<=current_season_race_ids.length;p++){
     ticks.push(p)
@@ -112,4 +125,10 @@ function drawChampionshipResults(){
 
   google.charts.setOnLoadCallback(drawLineGraph(current_drivers,season_data,ticks,year));
   showGraph()
+}
+
+function simulationInterface(){
+  let driverA;
+  let driverB;
+  createDropDown()
 }
