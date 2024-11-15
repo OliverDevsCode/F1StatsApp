@@ -10,17 +10,7 @@ function draw_Season_Screen(){
   drawChampionshipResults()
 
   season_select.input(drawChampionshipResults)
-  console.log(drivers_list_ids)
-  console.log(drivers_list_str)
-  let formatted_options = []
-  for(let i=0; i<drivers_list_ids.length; i ++){
-    let current_data = [drivers_list_str[i],drivers_list_ids[i]]
-    formatted_options.push(current_data)
-  }
-  let driverA_select = createDropDown(formatted_options,windowWidth*0.65+cnvOffset.x,cnvOffset.y)
-  let driverB_select = createDropDown(formatted_options,windowWidth*0.8+cnvOffset.x,cnvOffset.y)
-
-  
+  simulationInterface()
 }
 
 function drawChampionshipResults(){
@@ -130,5 +120,81 @@ function drawChampionshipResults(){
 function simulationInterface(){
   let driverA;
   let driverB;
-  createDropDown()
+  let sample_size;
+  //draw options for simulator
+  let formatted_options = []
+  for(let i=0; i<drivers_list_ids.length; i ++){
+    let current_data = [drivers_list_str[i],drivers_list_ids[i]]
+    formatted_options.push(current_data)
+  }
+
+  //dropdowns
+  let startx = windowWidth*0.3
+  let driverA_select = createDropDown(formatted_options,startx,cnvOffset.y,windowWidth*0.15)
+  let driverB_select = createDropDown(formatted_options,startx+(windowWidth*0.15)+120,cnvOffset.y,windowWidth*0.15)
+  let outscores = createP('Outscores');
+  outscores.position(startx+(windowWidth*0.15)+10,cnvOffset.y-18)
+  outscores.style("text-align", "center");
+  outscores.style('font-family', 'Consolas');
+  outscores.style('font-size', '18px');
+  outscores.style('font-weight', 'bolder');
+  p5_elements.push(driverA_select)
+  p5_elements.push(driverB_select)
+  p5_elements.push(outscores)
+  //slider
+  let sample_slider = createSlider(1000, 100000, 10000)
+  sample_slider.position(startx+(windowWidth*0.40)+20,cnvOffset.y)
+  sample_slider.input(updateSliderText)
+  sample_size = createP(`Sample Size ${sample_slider.value()}`)
+  p5_elements.push(sample_slider)
+  p5_elements.push(sample_size)
+  updateSliderText()
+
+  //button
+  let simulate = createNewButton("Simulate",1,1)
+  simulate.position(windowWidth-simulate.elt.offsetWidth-5*cnvOffset.x,cnvOffset.y)
+  simulate.mouseClicked(simulatePressed)
+
+  function updateSliderText(){
+  sample_size.remove()
+  p5_elements.pop()
+  sample_size = createP(`Sample Size ${sample_slider.value()}`)
+  sample_size.position(startx+(windowWidth*0.40)+20,cnvOffset.y+15)
+  p5_elements.push(sample_size)
+  }
+
+  function simulatePressed(){
+    if(driverA_select.value()==driverB_select.value()){
+      alert("Please select 2 different drivers")
+    }else{
+      let pos_A = '';
+      for(let i = 0; i<driverA_select.value().length;i++){
+        if(Number.isInteger(parseInt(driverA_select.value().at(i)))==true){
+          pos_A += driverA_select.value().at(i)
+        }
+      }
+      pos_A = parseInt(pos_A)-1
+      let pos_B = '';
+      for(let i = 0; i<driverB_select.value().length;i++){
+        if(Number.isInteger(parseInt(driverB_select.value().at(i)))==true){
+          pos_B += driverB_select.value().at(i)
+        }
+      }
+      pos_B = parseInt(pos_B)-1
+
+      let driverA_ID = formatted_options[pos_A][1]
+      let driverB_ID = formatted_options[pos_B][1]
+      draw_Simulation_Screen(driverA_ID,driverB_ID,sample_slider.value())
+    }
+  }  
+
+  showSimulationInterface = function(){
+    driverA_select.show()
+    driverB_select.show()
+    sample_size.show()
+    sample_slider.show()
+    simulate.show()
+    outscores.show()
+    simulate.mouseClicked(simulatePressed)
+  }
 }

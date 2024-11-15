@@ -124,22 +124,23 @@ function displayDriverBInDropDown(){
    * @returns driverId.
    */
 function getDropdownId(menu_name,results_list,constructor_list){
-  let position = -1;
+  let position = '';
   let isDriver = false
   for(let p=0; p<menu_name.length;p++){
     if(menu_name.at(-2)=="D"){
       isDriver = true
       if(Number.isInteger(parseInt(menu_name[p])) == true){
-        position += parseInt(menu_name[p])
+        position += menu_name[p]
       }
     }
     if(menu_name.at(-2)=="C"){
       if(Number.isInteger(parseInt(menu_name[p])) == true){
-        position += parseInt(menu_name[p])
+        position += menu_name[p]
 
       }
     }
 }
+position = parseInt(position)-1
 return [results_list[position][1],menu_name.at(-2)]
 }
 

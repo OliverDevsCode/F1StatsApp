@@ -152,6 +152,19 @@ function draw() {
     displaymode = -6
   }
 
+  if(displaymode == 7){
+    //prep canvas
+    clearP5Elements()
+    cnv.show()
+    hideGraph()
+    clear()
+    background('#E1E0D7')
+    backButton.show()
+    showSimulationInterface();
+    console.log("Simulation")
+    displaymode = -7
+  }
+
 }  
 
 function keyPressed(){
