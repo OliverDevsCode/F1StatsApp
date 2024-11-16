@@ -1,7 +1,9 @@
 google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.load('current', {'packages': ['table']});
 
 function hideGraph(){
   document.getElementById('chart_div').style.display = "none";
+  document.getElementById('table_div').style.display = "none";
 }
 
 function showGraph(){
@@ -10,7 +12,7 @@ function showGraph(){
 
 function drawLineGraph(drivers_data,season_data,ticks_data,year) {
 
-let drivers = drivers_data
+      let drivers = drivers_data
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'Race');
       for(let p =0; p<drivers.length;p++){
@@ -130,4 +132,23 @@ function drawSimulationLineGraph(drivers_data,season_data,simulation_data,ticks_
               data,predicted_data,'full',[[0, 0]], [1, 2], [1, 2])
       
             chart.draw(merged_chart, options);
+    }
+
+function drawTable(drivers_data,existing_data,simulation_data){
+      var data = new google.visualization.DataTable();
+      
+      // Adding columns with appropriate headers
+      data.addColumn('number', 'Race');   // First column header is 'Race'
+      let drivers = drivers_data
+      for(let p =0; p<drivers.length;p++){
+      data.addColumn('string', drivers[p]);
+    }
+      data.addRows(existing_data);
+      
+      
+  
+      // Creating the table visualization
+      var table = new google.visualization.Table(document.getElementById('table_div'));
+  
+      // Drawing the table with options
     }

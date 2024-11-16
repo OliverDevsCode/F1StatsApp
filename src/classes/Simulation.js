@@ -3,6 +3,7 @@ class Simultation{
     #driverB_ID;
     #sample_size;
     #existing_results = []
+    #existing_finishes = [];
     #races_remaining;
     #current_season_race_ids = []
     #season_raceIds = []
@@ -147,7 +148,50 @@ class Simultation{
 
         }//loop end
 
-        
+        //get finishing positions of each
+        // let driverA_pos = []
+        // let driverB_pos = []
+        // for(let index = resultsDB.length-1; resultsDB.raceId(index)>this.#season_raceIds.at(-1); index--){
+        //     if(resultsDB.driverId(index)==this.#driverA_ID){
+        //         driverA_pos.push(resultsDB.positionOrder(index))
+        //     }
+        //     if(resultsDB.driverId(index)==this.#driverB_ID){
+        //         driverB_pos.push(resultsDB.positionOrder(index))
+        //     }
+        // }
+        // console.log("Finish A",JSON.stringify(driverA_pos),"finish b", JSON.stringify(driverB_pos))
+        this.#existing_finishes = []
+        latest_raceId = parseInt(resultsDB.length-1)
+        current_drivers_IDs = [this.#driverA_ID,this.#driverB_ID].sort().reverse()
+        race_pos = 0
+        races_found = 0
+        for(let index = latest_raceId; parseFloat(resultsDB.raceId(index))>=this.#season_raceIds[this.#season_raceIds.length-1];){
+            if(parseInt(resultsDB.raceId(index)) == this.#season_raceIds[race_pos]){
+            races_found ++
+            let race_data = [(this.#season_raceIds.length)-races_found+1]
+            let driver_pos = 0
+            while(parseInt(resultsDB.raceId(index))==this.#season_raceIds[race_pos]){
+                if(parseInt(resultsDB.driverId(index))==parseInt(current_drivers_IDs[driver_pos])){
+                race_data.push(resultsDB.positionOrder(index))
+                driver_pos++
+                }
+                if(parseInt(resultsDB.driverId(index))<parseInt(current_drivers_IDs[driver_pos])){
+                    race_data.push("N/A")
+                    driver_pos++
+                }else{
+                    index --
+                }
+                
+            
+            }
+            this.#existing_finishes.push(race_data)
+            race_pos ++
+            }else{
+            index -- 
+            }
+
+        }//loop end
+        console.log("finishes",JSON.stringify(this.#existing_finishes))
         
 
     }
@@ -264,7 +308,6 @@ class Simultation{
     getScenario(position){
         if(this.#scenarios.length>1){
             let selected_scenario = (this.#scenarios[position][1])[0]
-            console.log("scenario",JSON.stringify(selected_scenario))
             this.#getExistingData()
             let google_ready_scenario = this.#formatScenario(selected_scenario)
             //creating graph
@@ -276,12 +319,15 @@ class Simultation{
             driverA.createHomePageStats(driversDB)
             let driverB = new Driver(parseInt(this.#driverB_ID))
             driverB.createHomePageStats(driversDB)
-            // console.log('google ready',JSON.stringify(google_ready_scenario))
-            // google.charts.setOnLoadCallback(drawLineGraph([driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname],google_ready_scenario,ticks,2024));
+            document.getElementById('table_div').style.display = "block";
             if(this.#driverA_ID>this.#driverB_ID){
-                google.charts.setOnLoadCallback(drawSimulationLineGraph([driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname],this.#existing_results,google_ready_scenario,ticks,2024));
+                let driver_data = [driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname]
+                google.charts.setOnLoadCallback(drawSimulationLineGraph(driver_data,this.#existing_results,google_ready_scenario,ticks,2024));
+                google.charts.setOnLoadCallback(drawTable(driver_data,this.#existing_finishes))
             }else{
-            google.charts.setOnLoadCallback(drawSimulationLineGraph([driverB.forename+" "+driverB.surname,driverA.forename+" "+driverA.surname],this.#existing_results,google_ready_scenario,ticks,2024));
+                let driver_data = [driverB.forename+" "+driverB.surname,driverA.forename+" "+driverA.surname]
+                google.charts.setOnLoadCallback(drawSimulationLineGraph(driver_data,this.#existing_results,google_ready_scenario,ticks,2024));
+                google.charts.setOnLoadCallback(drawTable(driver_data,this.#existing_finishes))
     
             }
         }else{
