@@ -155,13 +155,12 @@ function draw() {
   if(displaymode == 7){
     //prep canvas
     clearP5Elements()
-    cnv.show()
-    hideGraph()
+    cnv.hide()
     clear()
     background('#E1E0D7')
     backButton.show()
     showSimulationInterface();
-    console.log("Simulation")
+    console.log("Simulation Drawn")
     displaymode = -7
   }
 

@@ -155,6 +155,16 @@ function simulationInterface(){
   simulate.position(windowWidth-simulate.elt.offsetWidth-5*cnvOffset.x,cnvOffset.y)
   simulate.mouseClicked(simulatePressed)
 
+  //text for prob slider (created in simulation_screen.js)
+  let prob_slider_label = createP('Probability');
+  prob_slider_label.position((windowWidth*0.1)+30,cnvOffset.y+16)
+  prob_slider_label.style("text-align", "center");
+  prob_slider_label.style('font-family', 'Consolas');
+  prob_slider_label.style('font-size', '12px');
+  prob_slider_label.style('font-weight', 'bolder');
+  prob_slider_label.hide()
+  p5_elements.push(prob_slider_label)
+
   function updateSliderText(){
   sample_size.remove()
   p5_elements.pop()
@@ -164,6 +174,9 @@ function simulationInterface(){
   }
 
   function simulatePressed(){
+    if(prob_slider != undefined){
+      prob_slider.remove()
+    }
     if(driverA_select.value()==driverB_select.value()){
       alert("Please select 2 different drivers")
     }else{
@@ -195,6 +208,8 @@ function simulationInterface(){
     sample_slider.show()
     simulate.show()
     outscores.show()
+    prob_slider.show()
+    prob_slider_label.show()
     simulate.mouseClicked(simulatePressed)
   }
 }

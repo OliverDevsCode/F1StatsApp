@@ -1,5 +1,16 @@
+let prob_slider;
+let simulation_data;
 function draw_Simulation_Screen(driverA,driverB,sample_size){
   console.log(`Driver A ${driverA}, Driver B ${driverB}, ${sample_size}`)
   displaymode = 7
-  let simulation_data = new Simultation(driverA,driverB,sample_size)
+  simulation_data = new Simultation(driverA,driverB,sample_size)
+  prob_slider = createSlider(0,simulation_data.length,simulation_data.length/2,10)
+  prob_slider.position((windowWidth*0.1)+20,cnvOffset.y)
+  p5_elements.push(prob_slider)
+  prob_slider.input(adjustGraph)
+  adjustGraph()
+}
+
+function adjustGraph(){
+  simulation_data.getScenario(prob_slider.value())
 }
