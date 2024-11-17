@@ -1,4 +1,6 @@
 let prob_slider;
+let prob_slider_label;
+let table_label;
 let simulation_data;
 function draw_Simulation_Screen(driverA,driverB,sample_size){
   displaymode = 7
@@ -12,4 +14,5 @@ function draw_Simulation_Screen(driverA,driverB,sample_size){
 
 function adjustGraph(){
   simulation_data.getScenario(prob_slider.value())
+  
 }

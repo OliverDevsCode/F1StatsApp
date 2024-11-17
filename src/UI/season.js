@@ -11,11 +11,29 @@ function draw_Season_Screen(){
 
   season_select.input(drawChampionshipResults)
   simulationInterface()
+  
 }
 
 function drawChampionshipResults(){
   let current_year = new Date().getFullYear()
   year = season_select.value()
+  if(year != new Date().getFullYear()){
+    clearP5Elements()
+    simulationInterface()
+    season_select.show()
+    hideSimulationInterface();
+  }
+  if (typeof showSimulationInterface === "function") {
+    if((year == new Date().getFullYear())){
+      showSimulationInterface();
+      if(prob_slider!=undefined){
+        prob_slider.hide()
+        prob_slider_label.hide()
+        table_label.hide()
+      }
+    }
+}
+  document.getElementById('table_div').style.display = "none";
   // console.log("Full year =",year)
   let current_season_race_ids = []
   for(let index = driverStandingsDB.length-1; index>0;){
@@ -142,7 +160,7 @@ function simulationInterface(){
   p5_elements.push(driverB_select)
   p5_elements.push(outscores)
   //slider
-  let sample_slider = createSlider(1000, 100000, 10000)
+  let sample_slider = createSlider(10000, 1000000, 10000)
   sample_slider.position(startx+(windowWidth*0.40)+20,cnvOffset.y)
   sample_slider.input(updateSliderText)
   sample_size = createP(`Sample Size ${sample_slider.value()}`)
@@ -156,7 +174,7 @@ function simulationInterface(){
   simulate.mouseClicked(simulatePressed)
 
   //text for prob slider (created in simulation_screen.js)
-  let prob_slider_label = createP('Probability');
+  prob_slider_label = createP('Probability');
   prob_slider_label.position((windowWidth*0.1)+30,cnvOffset.y+16)
   prob_slider_label.style("text-align", "center");
   prob_slider_label.style('font-family', 'Consolas');
@@ -166,7 +184,7 @@ function simulationInterface(){
   p5_elements.push(prob_slider_label)
 
   //text for finish positions table
-  let table_label = createP('Finish Positions')
+  table_label = createP('Finish Positions')
   table_label.position(windowWidth*0.1,cnvOffset.y+windowHeight*0.7)
   table_label.style("text-align", "center");
   table_label.style('font-family', 'Consolas');
@@ -218,9 +236,25 @@ function simulationInterface(){
     sample_slider.show()
     simulate.show()
     outscores.show()
-    prob_slider.show()
-    prob_slider_label.show()
-    table_label.show()
+    if((prob_slider!=undefined)){
+      prob_slider.show()
+      prob_slider_label.show()
+      table_label.show()
+    }
     simulate.mouseClicked(simulatePressed)
+  }
+
+  hideSimulationInterface = function(){
+    driverA_select.hide()
+    driverB_select.hide()
+    sample_size.hide()
+    sample_slider.hide()
+    simulate.hide()
+    outscores.hide()
+    if(prob_slider!=undefined){
+      prob_slider.hide()
+      prob_slider_label.hide()
+      table_label.hide()
+    }
   }
 }
