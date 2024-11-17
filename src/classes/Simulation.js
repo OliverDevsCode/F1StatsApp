@@ -308,8 +308,7 @@ class Simultation{
             driverB.createHomePageStats(driversDB)
             document.getElementById('table_div').style.display = "block";
 
-            console.log("Predicted",JSON.stringify(selected_scenario))
-            let table_data = this.#formatTableData(this.#existing_finishes,selected_scenario)//testing method remove when done
+            let table_data = this.#formatTableData(this.#existing_finishes,selected_scenario)
 
             if(this.#driverA_ID>this.#driverB_ID){
                 let driver_data = [driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname]
@@ -368,7 +367,6 @@ class Simultation{
         //reformated finishes
         let finishes = existing_Data.reverse()
         let latest_race = existing_Data.at(-1)[0]
-        console.log("latest race ",latest_race)
         for(let i = 0; i<sim_data[0].length;i++){
             if((this.#driverA_ID>this.#driverB_ID)){
                 finishes.push([parseInt(latest_race)+i+1,String(sim_data[0][i]),String(sim_data[1][i])])
@@ -377,7 +375,6 @@ class Simultation{
             }
         }
         finishes = finishes.reverse()
-        console.log("finishes with sim data", JSON.stringify(finishes))
 
         let driverA = new Driver(parseInt(this.#driverA_ID));
         driverA.createHomePageStats(driversDB);

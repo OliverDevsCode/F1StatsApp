@@ -165,6 +165,16 @@ function simulationInterface(){
   prob_slider_label.hide()
   p5_elements.push(prob_slider_label)
 
+  //text for finish positions table
+  let table_label = createP('Finish Positions')
+  table_label.position(windowWidth*0.1,cnvOffset.y+windowHeight*0.7)
+  table_label.style("text-align", "center");
+  table_label.style('font-family', 'Consolas');
+  table_label.style('font-size', '30px');
+  table_label.style('font-weight', 'bolder');
+  table_label.hide()
+  p5_elements.push(table_label)
+
   function updateSliderText(){
   sample_size.remove()
   p5_elements.pop()
@@ -210,6 +220,7 @@ function simulationInterface(){
     outscores.show()
     prob_slider.show()
     prob_slider_label.show()
+    table_label.show()
     simulate.mouseClicked(simulatePressed)
   }
 }

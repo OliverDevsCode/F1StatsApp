@@ -155,10 +155,23 @@ function drawTable(season_data){
         width:windowWidth-30,
         allowHtml:true,
         cssClassNames: cssClassNames,
+        frozenColumns:1,
       };
   
       // Creating the table visualization
       var table = new google.visualization.Table(document.getElementById('table_div'));
+
+      var formatter = new google.visualization.ColorFormat();
+      formatter.addRange(10,21,'blue')
+      formatter.addRange(4,9,'#008000')
+      formatter.addRange(3,4,'#CD7F32')
+      formatter.addRange(2,3,'silver')
+      formatter.addRange(1,2,'gold')
+      for(let i =1; i<= season_data[0].length-1;i++){
+        formatter.format(data,i)
+      }
+
+      
     
       // Drawing the table with options
       table.draw(data,options)

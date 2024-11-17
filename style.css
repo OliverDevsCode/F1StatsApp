@@ -60,10 +60,18 @@ body{
 
 .tableRow{
   font-family: 'Consolas';
+  background-color:white;
+  font-weight: bold;
+
+
 }
 .odd-tableRow{
+  background-color:white;
   font-family: 'Consolas';
+  font-weight: bold;
+
 }
+
 
 canvas {
   display: block;
