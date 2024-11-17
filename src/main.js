@@ -19,7 +19,7 @@ function setup() {
 
 //Once drawn set display to mode 0 so it isn't called every second.
 function draw() {
-  if(displaymode>0){
+  if(displaymode>0 && displaymode!=7){
     if(screen_history.includes(displaymode)==false){
     //push mode
      screen_history.push(displaymode)

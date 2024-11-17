@@ -10,7 +10,7 @@ function draw_Season_Screen(){
   drawChampionshipResults()
 
   season_select.input(drawChampionshipResults)
-  simulationInterface()
+  // simulationInterface()
   
 }
 
@@ -126,14 +126,19 @@ function drawChampionshipResults(){
   showGraph()
   if (typeof showSimulationInterface === "function") {
     if((year == new Date().getFullYear())){
+      clearP5Elements()
       simulationInterface()
+      season_select.show()
       if(prob_slider!=undefined){
         prob_slider.hide()
         prob_slider_label.hide()
         table_label.hide()
       }
     }
-}
+  }if((typeof showSimulationInterface != "function") && (year ==new Date().getFullYear())){
+    simulationInterface()
+  }
+
 }
 
 function simulationInterface(){
@@ -161,7 +166,8 @@ function simulationInterface(){
   p5_elements.push(driverB_select)
   p5_elements.push(outscores)
   //slider
-  let sample_slider = createSlider(10000, 1000000, 10000)
+
+  let sample_slider = createSlider(10000, 1000000, 100000)
   sample_slider.position(startx+(windowWidth*0.40)+20,cnvOffset.y)
   sample_slider.input(updateSliderText)
   sample_size = createP(`Sample Size ${sample_slider.value()}`)
@@ -205,6 +211,7 @@ function simulationInterface(){
   function simulatePressed(){
     if(prob_slider != undefined){
       prob_slider.remove()
+      prob_slider_label.remove()
     }
     if(driverA_select.value()==driverB_select.value()){
       alert("Please select 2 different drivers")
