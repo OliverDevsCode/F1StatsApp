@@ -53,6 +53,18 @@ body{
   padding-left: 0%;
 }
 
+.headerRow{
+  background-color:#E1E0D7;
+  font-family: 'Consolas';
+}
+
+.tableRow{
+  font-family: 'Consolas';
+}
+.odd-tableRow{
+  font-family: 'Consolas';
+}
+
 canvas {
   display: block;
 }

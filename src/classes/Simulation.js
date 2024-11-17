@@ -148,19 +148,8 @@ class Simultation{
 
         }//loop end
 
-        //get finishing positions of each
-        // let driverA_pos = []
-        // let driverB_pos = []
-        // for(let index = resultsDB.length-1; resultsDB.raceId(index)>this.#season_raceIds.at(-1); index--){
-        //     if(resultsDB.driverId(index)==this.#driverA_ID){
-        //         driverA_pos.push(resultsDB.positionOrder(index))
-        //     }
-        //     if(resultsDB.driverId(index)==this.#driverB_ID){
-        //         driverB_pos.push(resultsDB.positionOrder(index))
-        //     }
-        // }
-        // console.log("Finish A",JSON.stringify(driverA_pos),"finish b", JSON.stringify(driverB_pos))
-        this.#existing_finishes = []
+        
+        this.#existing_finishes = [];
         latest_raceId = parseInt(resultsDB.length-1)
         current_drivers_IDs = [this.#driverA_ID,this.#driverB_ID].sort().reverse()
         race_pos = 0
@@ -191,8 +180,6 @@ class Simultation{
             }
 
         }//loop end
-        console.log("finishes",JSON.stringify(this.#existing_finishes))
-        
 
     }
        /**
@@ -219,9 +206,9 @@ class Simultation{
             driverA_points = this.#existing_results[0][2]
             driverB_points = this.#existing_results[0][1]
         }
-        console.log(`Existing points A = ${driverA_points}, existing points B = ${driverB_points}`)
-        console.log(`Bias A = ${driverA_bias}, Bias B = ${driverB_bias}`)
-        console.log(`races remaining ${this.#races_remaining}`)
+        // console.log(`Existing points A = ${driverA_points}, existing points B = ${driverB_points}`)
+        // console.log(`Bias A = ${driverA_bias}, Bias B = ${driverB_bias}`)
+        // console.log(`races remaining ${this.#races_remaining}`)
 
         let points = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let places = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]; 
@@ -320,14 +307,18 @@ class Simultation{
             let driverB = new Driver(parseInt(this.#driverB_ID))
             driverB.createHomePageStats(driversDB)
             document.getElementById('table_div').style.display = "block";
+
+            console.log("Predicted",JSON.stringify(selected_scenario))
+            let table_data = this.#formatTableData(this.#existing_finishes,selected_scenario)//testing method remove when done
+
             if(this.#driverA_ID>this.#driverB_ID){
                 let driver_data = [driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname]
                 google.charts.setOnLoadCallback(drawSimulationLineGraph(driver_data,this.#existing_results,google_ready_scenario,ticks,2024));
-                google.charts.setOnLoadCallback(drawTable(driver_data,this.#existing_finishes))
+                google.charts.setOnLoadCallback(drawTable(table_data))
             }else{
                 let driver_data = [driverB.forename+" "+driverB.surname,driverA.forename+" "+driverA.surname]
                 google.charts.setOnLoadCallback(drawSimulationLineGraph(driver_data,this.#existing_results,google_ready_scenario,ticks,2024));
-                google.charts.setOnLoadCallback(drawTable(driver_data,this.#existing_finishes))
+                google.charts.setOnLoadCallback(drawTable(table_data))
     
             }
         }else{
@@ -361,6 +352,70 @@ class Simultation{
 
         }
         return google_data
+    }
+
+    /**
+   * Format Finishes for Google Table.
+   * @method
+   * @param {array} finishes  unformatted actual data
+   * @param {array} finishes  unformatted simulated data
+   * 
+   * @returns {array} array of finishes formatted correctly.
+   */
+    #formatTableData(existing_Data,sim_data){
+        let formatted_list = [];
+
+        //reformated finishes
+        let finishes = existing_Data.reverse()
+        let latest_race = existing_Data.at(-1)[0]
+        console.log("latest race ",latest_race)
+        for(let i = 0; i<sim_data[0].length;i++){
+            if((this.#driverA_ID>this.#driverB_ID)){
+                finishes.push([parseInt(latest_race)+i+1,String(sim_data[0][i]),String(sim_data[1][i])])
+            }else{
+                finishes.push([parseInt(latest_race)+i+1,String(sim_data[1][i]),String(sim_data[0][i])])
+            }
+        }
+        finishes = finishes.reverse()
+        console.log("finishes with sim data", JSON.stringify(finishes))
+
+        let driverA = new Driver(parseInt(this.#driverA_ID));
+        driverA.createHomePageStats(driversDB);
+        let driverB = new Driver(parseInt(this.#driverB_ID));
+        driverB.createHomePageStats(driversDB);
+
+        document.getElementById('table_div').style.display = "block";
+
+        let driverA_finishes = [];
+        let driverB_finishes = [];
+
+        let num_of_races = finishes.length
+
+        if(this.#driverA_ID>this.#driverB_ID){
+                let driver_data = [driverA.forename+" "+driverA.surname,driverB.forename+" "+driverB.surname]
+                driverA_finishes.push(driver_data[0])
+                for(let i=num_of_races-1;i>=0;i--){
+                    driverA_finishes.push(finishes[i][1])
+                }
+                driverB_finishes.push(driver_data[1])
+                for(let i=num_of_races-1;i>=0;i--){
+                    driverB_finishes.push(finishes[i][2])
+                }
+                formatted_list.push(driverA_finishes,driverB_finishes)
+        }else{
+                let driver_data = [driverB.forename+" "+driverB.surname,driverA.forename+" "+driverA.surname]
+                driverA_finishes.push(driver_data[1])
+                for(let i=num_of_races-1;i>=0;i--){
+                    driverA_finishes.push(finishes[i][2])
+                }
+                driverB_finishes.push(driver_data[0])
+                for(let i=num_of_races-1;i>=0;i--){
+                    driverB_finishes.push(finishes[i][1])
+                }
+                formatted_list.push(driverA_finishes,driverB_finishes)
+        }
+
+        return formatted_list
     }
 
 

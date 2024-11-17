@@ -134,21 +134,32 @@ function drawSimulationLineGraph(drivers_data,season_data,simulation_data,ticks_
             chart.draw(merged_chart, options);
     }
 
-function drawTable(drivers_data,existing_data,simulation_data){
+function drawTable(season_data){
       var data = new google.visualization.DataTable();
       
       // Adding columns with appropriate headers
-      data.addColumn('number', 'Race');   // First column header is 'Race'
-      let drivers = drivers_data
-      for(let p =0; p<drivers.length;p++){
-      data.addColumn('string', drivers[p]);
+      data.addColumn('string', 'Driver');   // First column header is 'Race'
+      for(let p =0; p<season_data[0].length-1;p++){
+      data.addColumn('string', `Race ${p+1}`);
     }
-      data.addRows(existing_data);
+      data.addRows(season_data);
+
+      var cssClassNames = {
+        headerRow: 'headerRow',
+        tableRow: 'tableRow',
+        oddTableRow: 'odd-tableRow',
+        selectedTableRow: 'selected-table-row',
+      }
       
-      
+      var options = {
+        width:windowWidth-30,
+        allowHtml:true,
+        cssClassNames: cssClassNames,
+      };
   
       // Creating the table visualization
       var table = new google.visualization.Table(document.getElementById('table_div'));
-  
+    
       // Drawing the table with options
+      table.draw(data,options)
     }

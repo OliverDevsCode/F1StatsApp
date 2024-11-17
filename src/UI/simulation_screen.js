@@ -1,7 +1,6 @@
 let prob_slider;
 let simulation_data;
 function draw_Simulation_Screen(driverA,driverB,sample_size){
-  console.log(`Driver A ${driverA}, Driver B ${driverB}, ${sample_size}`)
   displaymode = 7
   simulation_data = new Simultation(driverA,driverB,sample_size)
   prob_slider = createSlider(0,simulation_data.length,simulation_data.length/2,10)
