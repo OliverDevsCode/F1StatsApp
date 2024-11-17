@@ -23,16 +23,7 @@ function drawChampionshipResults(){
     season_select.show()
     hideSimulationInterface();
   }
-  if (typeof showSimulationInterface === "function") {
-    if((year == new Date().getFullYear())){
-      showSimulationInterface();
-      if(prob_slider!=undefined){
-        prob_slider.hide()
-        prob_slider_label.hide()
-        table_label.hide()
-      }
-    }
-}
+  
   document.getElementById('table_div').style.display = "none";
   // console.log("Full year =",year)
   let current_season_race_ids = []
@@ -133,6 +124,16 @@ function drawChampionshipResults(){
 
   google.charts.setOnLoadCallback(drawLineGraph(current_drivers,season_data,ticks,year));
   showGraph()
+  if (typeof showSimulationInterface === "function") {
+    if((year == new Date().getFullYear())){
+      simulationInterface()
+      if(prob_slider!=undefined){
+        prob_slider.hide()
+        prob_slider_label.hide()
+        table_label.hide()
+      }
+    }
+}
 }
 
 function simulationInterface(){
@@ -228,6 +229,7 @@ function simulationInterface(){
       draw_Simulation_Screen(driverA_ID,driverB_ID,sample_slider.value())
     }
   }  
+
 
   showSimulationInterface = function(){
     driverA_select.show()
