@@ -18,8 +18,9 @@ body{
   width: 100%;
 }
 .navbar button{
+  display: inline;
   font-family: 'Consolas';
-  font-size: 75%;
+  font-size: 70%;
   border-radius: 10px;
   font-weight: bolder;
   background-color: black;
@@ -28,23 +29,52 @@ body{
 }
 .homebutton{
   position: relative;
-  left: 3vw;
+  left: 1vw;
   bottom: 5px;
 }
 
 .comparebutton{
   position: relative;
-  left:1vw;
+  right:1vw;
   bottom: 5px;
 }
 
 .seasonbutton{
   position: relative;
-  right: 1vw;
+  right: 3vw;
   bottom: 5px;
+  padding-right: 0%;
 }
+.searchbutton{
+  position: relative;
+  right: 5vw;
+  bottom: 5px;
+  padding-right: 0%;
+  padding-left: 0%;
+}
+
+.headerRow{
+  background-color:#E1E0D7;
+  font-family: 'Consolas';
+}
+
+.tableRow{
+  font-family: 'Consolas';
+  background-color:white;
+  font-weight: bold;
+
+
+}
+.odd-tableRow{
+  background-color:white;
+  font-family: 'Consolas';
+  font-weight: bold;
+
+}
+
 
 canvas {
   display: block;
 }
+
 

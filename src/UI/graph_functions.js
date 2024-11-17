@@ -96,11 +96,18 @@ function drawFinishGraph(finishes,x,y,w,h){
   textSize(bar_height*1.7)
   textStyle(BOLD)
   push()
+  textSize(bar_height*4)
+  textFont('Consolas')
+  textStyle(BOLD)
+  text("Race Results",x-(1.4*bar_height)+w/2,y-bar_height*0.8)
+  pop()
+  push()
   translate(x-(1.4*windowWidth/50)-(3.5*bar_height),y+(h/2))
   rotate(-PI/2);
   text("Position",0,0)
   pop()
-  text(max_freq,x-(1.4*bar_height),y+h+bar_height*2)
+  bar_length = ((w-5)/max_freq)*(0.9*(max_freq))
+  text(max_freq,(windowWidth-(bar_length)-5),y+h+bar_height*2)
   text("Frequency",x-(1.4*bar_height)+w/2,y+h+bar_height*2)
   pop()
   
@@ -109,14 +116,14 @@ function drawFinishGraph(finishes,x,y,w,h){
 
 function getFrequencyArray(list_of_finishes){
 
-  let extend_by = 20-list_of_finishes.length
   list_of_finishes.sort(function(a, b){return a - b});
   let max_finish = list_of_finishes.at(-1)
+  let extend_by = 20-max_finish
 
   let len_finishes = list_of_finishes.length
   let extended = false
-  if(list_of_finishes.length <20){
-    len_finishes = 19
+  if(max_finish <20){
+    len_finishes += extend_by
     for(let p = 0; p<extend_by;p++){
       list_of_finishes.push(100)
     }
@@ -128,7 +135,7 @@ function getFrequencyArray(list_of_finishes){
   
   let place_freq = []
   let place = 1
-  for(let i = 0; i <= len_finishes;){
+  for(let i = 0; i < len_finishes;){
     let instance = [] //current place and positon
     instance.push(place) //push current place 
     let count = 0
@@ -146,15 +153,14 @@ function getFrequencyArray(list_of_finishes){
 }  
 
   if(extended == true){
-    for(let i=0;i<(100-max_finish);i++){
-      place_freq.pop()
-    }
+      for(let i=0;i<80;i++){
+        place_freq.pop()
+      }
+    
   }
-  
   return place_freq
   
 }
-
 
 /**
    * Draws compareStats.
@@ -282,7 +288,7 @@ function drawCompareStats(compareA,compareB,leftside,rightside,x,y,w,h,compareA_
    * @returns Draws stats bars.
    */
     function drawDriverBars(invert){
-      rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(driver.wins)),gap*0.7,0,10,10,0);text(driver.wins,(x+invert*2*gap)+invert*(barLength(driver.wins)),y+(0.3*gap));
+       rect(x+invert*(1.2*gap),y_adjust*y-0.5*gap,invert*(barLength(driver.wins)),gap*0.7,0,10,10,0);text(driver.wins,(x+invert*2*gap)+invert*(barLength(driver.wins)),y+(0.3*gap));
        rect(x+invert*1.2*gap,y_adjust*y+0.45*gap,invert*(barLength(driver.poles)),gap*0.7,0,10,10,0);text(driver.poles,(x+invert*2*gap)+invert*(barLength(driver.poles)),y+(1.25*gap));
        rect(x+invert*1.2*gap,y_adjust*y+1.45*gap,invert*(barLength(driver.podiums)),gap*0.7,0,10,10,0);text(driver.podiums,(x+invert*2*gap)+invert*(barLength(driver.podiums)),y+(2.25*gap));
        rect(x+invert*1.2*gap,y_adjust*y+2.5*gap,invert*(barLength(driver.num_of_races)),gap*0.7,0,10,10,0);text(driver.num_of_races,(x+invert*2*gap)+invert*(barLength(driver.num_of_races)),y+(3.25*gap));
@@ -443,8 +449,12 @@ function createCompareFinishGraph(finishesA,finishesB,x,y,w,h){
   textSize(bar_height*1.7)
   textStyle(BOLD)
   push()
-  text("Position",x,y)
+  textSize(bar_height*2.5)
+  textFont('Consolas')
+  textStyle(BOLD)
+  text("Race Results Comparison",x,y-bar_height*3)
   pop()
+  text("Position",x,y)
   textSize(bar_height*3)
   textAlign(CENTER)
   text(max_freq,x+w,y+h+bar_height*3)

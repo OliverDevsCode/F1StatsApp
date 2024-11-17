@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="src\libraries\p5.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
 
   <body>
@@ -18,20 +19,26 @@
       <button class="homebutton" onclick="goHome()" type="button">Home</button>
       <button class="comparebutton" onclick="goCompare()" type="button">Compare</button>
       <button class="seasonbutton" onclick="goSeason()" type="button">Season</button>
+      <button class="searchbutton" onclick="goSearch()" type="button">Search</button>
     </h1>
       <hr color="black" size="8px" />
     </div>
+    <div id="chart_div" style="position:relative; left:-50px;"></div>
+    <div id="table_div" style="position: relative;"></div>
+
     <!-- navbar end -->
 
 
     <script src="src/main.js"></script>
     <!-- Utilities -->
     <script src="src/utils/DatabaseFunctions.js"></script>
+    <script src="src/utils/googlecharts.js"></script>
     <!-- classes -->
      <script src="src/classes/Circuits.js"></script>
      <script src="src/classes/Races.js"></script>
      <script src="src/classes/Results.js"></script>
      <script src="src/classes/SprintResults.js"></script>
+     <script src="src/classes/Simulation.js"></script>
 
      <!-- constructor related classes -->
      <script src="src/classes/Constructors.js"></script>
@@ -52,19 +59,25 @@
       <script src="src/UI/driver_profile.js"></script>
       <script src="src/UI/constructor_profile.js"></script>
       <script src="src/UI/compare.js"></script>
+      <script src="src/UI/season.js"></script>
+      <script src="src/UI/simulation_screen.js"></script>
       <script>
         function goHome(){
           console.log("GO HOME")
-          displaymode = 1
+          displaymode = 1;
         }
         function goCompare(){
           console.log("GO COMPARE")
-          displaymode = 2
+          displaymode = 2;
     
         }
         function goSeason(){
           console.log("GO SEASON")
-          displaymode = 3
+          displaymode = 3;
+        }
+        function goSearch(){
+          console.log("GO SEARCH")
+          displaymode = 4;
         }
       </script>
 

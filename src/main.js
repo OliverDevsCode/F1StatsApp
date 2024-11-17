@@ -19,7 +19,7 @@ function setup() {
 
 //Once drawn set display to mode 0 so it isn't called every second.
 function draw() {
-  if(displaymode>0){
+  if(displaymode>0 && displaymode!=7){
     if(screen_history.includes(displaymode)==false){
     //push mode
      screen_history.push(displaymode)
@@ -33,8 +33,9 @@ function draw() {
 
   //home screen
   if(displaymode==1){
-
     //prep canvas
+    cnv.show()
+    hideGraph()
     clearP5Elements();
     clear();
     background('#E1E0D7');
@@ -52,6 +53,8 @@ function draw() {
 
     //prep canvas
     clearP5Elements();
+    cnv.show()
+    hideGraph()
     clear();
     background('#E1E0D7');
 
@@ -59,9 +62,6 @@ function draw() {
 
     //draw new screen
     draw_Compare_Screen();
-
-    driverA_text.input(displayDriverAInDropDown)
-    driverB_text.input(displayDriverBInDropDown)
     
     const millis = Date.now() - start;//search timer
     console.log(`Search took ${millis}ms`)//search timer
@@ -70,12 +70,34 @@ function draw() {
     displaymode = -2
   }
 
+  //season screen
+  if(displaymode==3){
+
+    //prep canvas
+    clearP5Elements();
+    clear();
+    background('#E1E0D7');
+
+    const start = Date.now()//search timer
+
+    //draw new screen
+    draw_Season_Screen();
+    
+    const millis = Date.now() - start;//search timer
+    console.log(`Season took ${millis}ms`)//search timer
+
+    console.log("Season Screen Drawn")
+    displaymode = -3
+  }
+
 
   //search screen
   if(displaymode==4){
 
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7');
 
@@ -101,14 +123,16 @@ function draw() {
   if(displaymode == 5){
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7')
 
-    const start = Date.now()//search timer
+    const start = Date.now()//profile timer
     //draw profile
     draw_Driver_Profile()
-    const millis = Date.now() - start;//search timer
-    console.log(`Profile took ${millis}ms`)//search timer
+    const millis = Date.now() - start;//profile timer
+    console.log(`Profile took ${millis}ms`)//profile timer
 
     console.log("Driver Profile Drawn")
     displaymode = -5
@@ -118,12 +142,26 @@ function draw() {
   if(displaymode == 6){
     //prep canvas
     clearP5Elements()
+    cnv.show()
+    hideGraph()
     clear()
     background('#E1E0D7')
     draw_Constructor_Profile()
 
     console.log("Constructor Profile Drawn")
     displaymode = -6
+  }
+
+  if(displaymode == 7){
+    //prep canvas
+    clearP5Elements()
+    cnv.hide()
+    clear()
+    background('#E1E0D7')
+    backButton.show()
+    showSimulationInterface();
+    console.log("Simulation Drawn")
+    displaymode = -7
   }
 
 }  

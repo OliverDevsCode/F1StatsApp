@@ -44,9 +44,9 @@ class Driver{
    * @returns {data} sets values in object
    */
 
-    createProfileStats(driversDB,resultsDB,sprintResultsDB){
-        let stats = new DriverStatistics(this.#driverID,resultsDB,sprintResultsDB,driversDB)
-        stats.calcProfileStats()
+    createProfileStats(driversDB,resultsDB,sprintResultsDB,range,graph_config){
+        let stats = new DriverStatistics(this.#driverID,resultsDB,sprintResultsDB,driversDB,range)
+        stats.calcProfileStats(graph_config)
         this.#number = stats.number;
         this.#forename = stats.forename;
         this.#surname = stats.surname;
@@ -89,6 +89,8 @@ class Driver{
     createComparisonStats(driversDB,resultsDB,sprintResultsDB){
       //needs completing
     }
+
+
 
     /**
    * Get number
