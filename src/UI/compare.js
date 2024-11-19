@@ -97,11 +97,12 @@ function displayDriverAInDropDown(){
     //check driver A box
     constructorA_list = []
     driverA_list = []
-    findResults(constructorA_list,driverA_list,driverA_text.value())
-    driverA_list = addNames(driverA_list,constructorA_list);
-    driverA_dropdown = createDropDown(driverA_list,windowWidth*0.005+cnvOffset.x+windowWidth*0.2+20,cnvOffset.y+10,windowWidth*0.2,windowHeight*0.060)
-    p5_elements.push(driverA_dropdown)
-
+    if(driverA_text.value().length>0){
+      findResults(constructorA_list,driverA_list,driverA_text.value())
+      driverA_list = addNames(driverA_list,constructorA_list);
+      driverA_dropdown = createDropDown(driverA_list,windowWidth*0.005+cnvOffset.x+windowWidth*0.2+20,cnvOffset.y+10,windowWidth*0.2,windowHeight*0.060)
+      p5_elements.push(driverA_dropdown)
+    }
 }
 
 
@@ -109,11 +110,13 @@ function displayDriverBInDropDown(){
     //check driver B box
     constructorB_list = []
     driverB_list = []
-    findResults(constructorB_list,driverB_list,driverB_text.value())
-    driverB_list = addNames(driverB_list,constructorB_list);
-    driverB_dropdown = createDropDown(driverB_list,windowWidth*0.52+cnvOffset.x+windowWidth*0.2+20,cnvOffset.y+10,windowWidth*0.2,windowHeight*0.060)
-    p5_elements.push(driverB_dropdown)
-
+    if(driverB_text.value().length>0){
+      findResults(constructorB_list,driverB_list,driverB_text.value())
+      driverB_list = addNames(driverB_list,constructorB_list);
+      driverB_dropdown = createDropDown(driverB_list,windowWidth*0.52+cnvOffset.x+windowWidth*0.2+20,cnvOffset.y+10,windowWidth*0.2,windowHeight*0.060)
+      p5_elements.push(driverB_dropdown)
+    }
+  
 }
 
 /**
