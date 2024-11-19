@@ -5,6 +5,12 @@ let constructorSelect;
 let constructor_matches = [] //index position of the matches
 let driver_matches = [] //index position of the matches
 
+function startSearch(){
+    if(searchBar.value().length>0){
+        displaymode = 4
+    }
+}
+
 function draw_Search_Screen(user_input){
     backButton.show()
 
@@ -31,7 +37,7 @@ function findResults(constructor_matches,driver_matches,user_input){
 
     //find constructor matches
     for(let index =0; index<constructorsDB.length;index++){
-        if(user_input == (constructorsDB.name(index)).toLowerCase() || user_input == (constructorsDB.nationality(index)).toLowerCase() ){
+        if(user_input == ((constructorsDB.name(index)).toLowerCase()).slice(0,user_input.length) || user_input == (constructorsDB.nationality(index)).toLowerCase() ){
             constructor_matches.push(index)
         }
         
@@ -51,7 +57,7 @@ function findResults(constructor_matches,driver_matches,user_input){
     //find driver matches
     for(let index = 0; index<driversDB.length;index++){
 
-        if(user_input == ((driversDB.forename(index))).toLowerCase() || user_input == ((driversDB.surname(index))).toLowerCase() || user_input == ((driversDB.number(index))).toLowerCase() || (user_input).includes((driversDB.nationality(index)).toLowerCase())==true){
+        if(user_input == (((driversDB.forename(index))).toLowerCase()).slice(0,user_input.length) || user_input == (((driversDB.surname(index))).toLowerCase()).slice(0,user_input.length) || user_input == ((driversDB.number(index))).toLowerCase() || (user_input).includes((driversDB.nationality(index)).toLowerCase())==true){
             driver_matches.push(index)
         }
         

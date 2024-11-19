@@ -26,6 +26,7 @@ function draw() {
     }
      
   }
+  
  
   
   //back button
@@ -45,6 +46,7 @@ function draw() {
     console.log("Home Screen Drawn")
     displaymode = -1
     
+    searchBar.input(startSearch)
     
   }
 
@@ -168,8 +170,13 @@ function draw() {
 
 function keyPressed(){
   if(keyCode == ENTER){
-    if(displaymode == -1 || displaymode == -4){
-    displaymode = 4
+    if(displaymode == -4){
+    if(driverSelect.value()!=undefined){
+      change_mode_to_driver_profile()
+    }
+    if(constructorSelect.value()!=undefined){
+      change_mode_to_constructor_profile()
+    }
     }
   }
 }
