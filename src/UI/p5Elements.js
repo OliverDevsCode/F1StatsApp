@@ -7,7 +7,7 @@ let p5_elements = []
    */
 function clearP5Elements(){
     for(let p=0;p<p5_elements.length;p++){
-        (p5_elements[p]).hide()
+        (p5_elements[p]).hide() // hide() increases the memory usage, however remove() would cause problems in some parts of the code and require a redesign of the UI functins.
     }
 }
 
