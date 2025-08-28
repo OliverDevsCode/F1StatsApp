@@ -1,4 +1,4 @@
 # F1StatsApp
 Formula One Statistics Web Application designed for my computer science coursework. The project will offer a vareity of features and will be deployed via 3 prototypes
 
-# Final Score 62
+# Final Score 62/70
